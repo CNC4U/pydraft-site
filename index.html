@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PyDraft 2D CAD - Precision drafting for Windows</title>
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 0 30px 0;
+  background: #7a8290;
+  background-image:
+    linear-gradient(180deg, #5c6472 0px, #7a8290 220px, #7a8290 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: #333333;
+}
+
+a { color: #003366; text-decoration: underline; }
+a:visited { color: #663399; }
+a:hover { color: #cc3300; }
+
+.shell {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-left: 1px solid #2b3340;
+  border-right: 1px solid #2b3340;
+  border-bottom: 1px solid #2b3340;
+}
+
+/* ---------- masthead ---------- */
+.masthead {
+  background: #1d2531;
+  background-image: linear-gradient(180deg, #39434f 0%, #1d2531 100%);
+  border-bottom: 1px solid #000000;
+  padding: 0;
+}
+.masthead table { width: 100%; border-collapse: collapse; }
+.brandcell { padding: 11px 0 9px 14px; vertical-align: middle; }
+
+.logomark {
+  display: inline-block;
+  width: 34px; height: 34px;
+  vertical-align: middle;
+  margin-right: 9px;
+  background: #c8ccd4;
+  background-image: linear-gradient(150deg, #ffffff 0%, #b3b9c4 55%, #7d8593 100%);
+  border: 1px solid #10161f;
+  position: relative;
+}
+.logomark:after {
+  content: "";
+  position: absolute;
+  left: 7px; top: 22px;
+  width: 20px; height: 1px;
+  background: #10161f;
+  box-shadow: 4px -8px 0 0 #10161f, 12px -14px 0 0 #10161f;
+}
+.logomark:before {
+  content: "";
+  position: absolute;
+  left: 8px; top: 7px;
+  width: 1px; height: 16px;
+  background: #b5121b;
+}
+
+.wordmark {
+  display: inline-block;
+  vertical-align: middle;
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 25px;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+.wordmark em { font-style: normal; color: #ff9c3f; }
+.wordmark span {
+  display: block;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 9px;
+  letter-spacing: 2.4px;
+  color: #93a0b2;
+  margin-top: 1px;
+}
+
+.utility {
+  padding: 0 14px 0 0;
+  text-align: right;
+  vertical-align: middle;
+  font-size: 10px;
+  color: #7d8a9c;
+}
+.utility a { color: #b9c5d4; text-decoration: none; }
+.utility a:visited { color: #b9c5d4; }
+.utility a:hover { color: #ffffff; text-decoration: underline; }
+
+/* ---------- nav strip ---------- */
+.navbar {
+  background: #d7dae0;
+  background-image: linear-gradient(180deg, #fdfdfe 0%, #d2d6dd 48%, #bcc2cc 52%, #d7dbe1 100%);
+  border-bottom: 1px solid #8c93a0;
+  border-top: 1px solid #ffffff;
+  padding: 0;
+}
+.navbar table { border-collapse: collapse; }
+.navbar td {
+  padding: 5px 15px 5px 15px;
+  font-size: 10px;
+  font-weight: bold;
+  border-right: 1px solid #a9b0bb;
+  white-space: nowrap;
+}
+.navbar td.first { border-left: 1px solid #ffffff; }
+.navbar a { color: #2b3340; text-decoration: none; }
+.navbar a:visited { color: #2b3340; }
+.navbar a:hover { color: #b5121b; }
+.navbar td.on {
+  background: #ffffff;
+  background-image: linear-gradient(180deg, #ffffff 0%, #f3f4f7 100%);
+}
+
+
+/* ---------- hero ---------- */
+.hero { border-bottom: 1px solid #c3c8d1; }
+.hero table { width: 100%; border-collapse: collapse; }
+.herocopy {
+  width: 62%;
+  padding: 26px 26px 24px 26px;
+  vertical-align: top;
+  background: #ffffff;
+}
+.kicker {
+  font-size: 10px;
+  font-weight: bold;
+  color: #b5121b;
+  margin: 0 0 7px 0;
+  letter-spacing: 0.4px;
+}
+h1 {
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 27px;
+  line-height: 1.14;
+  font-weight: normal;
+  color: #1d2531;
+  margin: 0 0 11px 0;
+}
+.lede {
+  font-size: 11px;
+  line-height: 1.66;
+  color: #454e5c;
+  margin: 0 0 15px 0;
+}
+.lede b { color: #1d2531; }
+
+.herobox {
+  padding: 18px 18px 18px 0;
+  vertical-align: top;
+  background: #eceef2;
+  background-image: linear-gradient(160deg, #f7f8fa 0%, #dfe3ea 100%);
+  border-left: 1px solid #d4d8e0;
+  text-align: center;
+}
+
+/* the 3D product box, CSS only */
+.boxwrap { padding: 14px 0 4px 0; }
+.prodbox {
+  display: inline-block;
+  position: relative;
+  width: 118px;
+  height: 152px;
+  background: #232b38;
+  background-image: linear-gradient(103deg, #39424f 0%, #232b38 34%, #1a212b 100%);
+  border: 1px solid #10161f;
+  box-shadow: 4px 5px 0 rgba(30,36,46,.30), 8px 9px 14px rgba(20,24,32,.28);
+  text-align: left;
+}
+.prodbox .spine {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 13px;
+  background-image: linear-gradient(90deg, #0e131b 0%, #2c3644 100%);
+  border-right: 1px solid #0b0f16;
+}
+.prodbox .glyph {
+  position: absolute;
+  left: 30px; top: 22px;
+  width: 58px; height: 46px;
+}
+.prodbox .glyph i {
+  position: absolute;
+  background: #ff9c3f;
+  display: block;
+}
+.prodbox .glyph i.h { height: 1px; width: 58px; top: 40px; left: 0; }
+.prodbox .glyph i.v { width: 1px; height: 40px; top: 0; left: 6px; }
+.prodbox .glyph i.d {
+  width: 52px; height: 1px; top: 21px; left: 5px;
+  transform: rotate(-38deg);
+  transform-origin: left center;
+  background: #ffffff;
+}
+.prodbox .glyph i.dot {
+  width: 5px; height: 5px; border-radius: 5px;
+  background: #b5121b; top: 38px; left: 4px;
+}
+.prodbox .title {
+  position: absolute;
+  left: 22px; right: 12px; bottom: 34px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 20px;
+  line-height: 1.05;
+  color: #ffffff;
+}
+.prodbox .title span {
+  display: block;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 7px;
+  letter-spacing: 1.7px;
+  color: #93a0b2;
+  margin-top: 5px;
+}
+.prodbox .rel {
+  position: absolute;
+  left: 22px; bottom: 15px;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #ff9c3f;
+}
+
+.boxcap {
+  font-size: 10px;
+  color: #6b7583;
+  margin: 12px 0 0 0;
+  line-height: 1.5;
+}
+
+/* ---------- beveled buttons ---------- */
+.btn {
+  display: inline-block;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 6px 17px 7px 17px;
+  border: 1px solid #2b3340;
+  border-top-color: #7e8798;
+  border-left-color: #7e8798;
+  background: #4a5666;
+  background-image: linear-gradient(180deg, #6c778a 0%, #4a5666 50%, #3b4553 51%, #2f3846 100%);
+  color: #ffffff !important;
+  cursor: pointer;
+}
+.btn:visited { color: #ffffff !important; }
+.btn:hover {
+  background-image: linear-gradient(180deg, #7e8a9c 0%, #58657a 50%, #464f5f 51%, #38414f 100%);
+  color: #ffffff !important;
+}
+.btn:active {
+  border-top-color: #2b3340;
+  border-left-color: #2b3340;
+  border-bottom-color: #7e8798;
+  border-right-color: #7e8798;
+}
+.btn.primary {
+  border-color: #6d0b11;
+  border-top-color: #e0656c;
+  border-left-color: #e0656c;
+  background-image: linear-gradient(180deg, #d94a52 0%, #b5121b 50%, #9c0f17 51%, #7c0c12 100%);
+  font-size: 12px;
+  padding: 8px 22px 9px 22px;
+}
+.btn.primary:hover {
+  background-image: linear-gradient(180deg, #e35a62 0%, #c31721 50%, #a81118 51%, #880d14 100%);
+}
+.btn.small { font-size: 10px; padding: 4px 11px 5px 11px; font-weight: normal; }
+.btn + .btn { margin-left: 6px; }
+
+.dlnote {
+  font-size: 10px;
+  color: #6b7583;
+  margin: 9px 0 0 0;
+  line-height: 1.55;
+}
+
+/* ---------- body columns ---------- */
+.cols { width: 100%; border-collapse: collapse; }
+.side {
+  width: 232px;
+  vertical-align: top;
+  background: #f4f5f8;
+  border-right: 1px solid #d8dbe2;
+  padding: 0 0 22px 0;
+}
+.main { vertical-align: top; padding: 0 20px 26px 20px; }
+
+.sidehead {
+  background: #c9cdd6;
+  background-image: linear-gradient(180deg, #eceef2 0%, #ccd1da 48%, #b9bfca 52%, #ccd0d9 100%);
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #a9b0bb;
+  padding: 5px 11px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #2b3340;
+}
+
+.specbox { padding: 9px 11px 12px 11px; }
+.spectbl { width: 100%; border-collapse: collapse; font-size: 10px; }
+.spectbl th {
+  text-align: left;
+  font-weight: bold;
+  color: #4a5666;
+  padding: 3px 0 3px 0;
+  vertical-align: top;
+  width: 62px;
+}
+.spectbl td { padding: 3px 0 3px 0; color: #5c6675; vertical-align: top; }
+
+.pullquote {
+  margin: 4px 11px 0 11px;
+  padding: 10px 11px;
+  background: #ffffff;
+  border: 1px solid #d8dbe2;
+  border-left: 3px solid #ff9c3f;
+  font-size: 10px;
+  line-height: 1.62;
+  color: #454e5c;
+}
+.pullquote cite {
+  display: block;
+  margin-top: 7px;
+  font-style: normal;
+  font-size: 9px;
+  color: #7b8391;
+}
+
+/* ---------- section chrome ---------- */
+.secbar {
+  background: #dfe2e8;
+  background-image: linear-gradient(180deg, #fafbfc 0%, #dcdfe6 48%, #ccd1da 52%, #dfe2e8 100%);
+  border: 1px solid #b4bac5;
+  border-left: 3px solid #b5121b;
+  padding: 5px 11px;
+  margin: 22px 0 13px 0;
+  font-size: 11px;
+  font-weight: bold;
+  color: #1d2531;
+}
+.secbar.first { margin-top: 20px; }
+
+p.body { font-size: 11px; line-height: 1.72; color: #454e5c; margin: 0 0 11px 0; }
+
+.feat { width: 100%; border-collapse: collapse; margin: 0 0 4px 0; }
+.feat td {
+  width: 50%;
+  vertical-align: top;
+  padding: 0 14px 15px 0;
+}
+.feat h3 {
+  font-size: 11px;
+  font-weight: bold;
+  color: #1d2531;
+  margin: 0 0 4px 0;
+}
+.feat h3 b {
+  display: inline-block;
+  width: 13px; height: 13px;
+  margin-right: 6px;
+  vertical-align: -2px;
+  background: #4a5666;
+  background-image: linear-gradient(150deg, #7d8798 0%, #3b4553 100%);
+  border: 1px solid #2b3340;
+}
+.feat p { font-size: 10px; line-height: 1.66; color: #5c6675; margin: 0 0 0 19px; }
+
+/* format table */
+.fmt { width: 100%; border-collapse: collapse; border: 1px solid #b4bac5; margin: 0 0 6px 0; }
+.fmt caption {
+  caption-side: bottom;
+  text-align: left;
+  font-size: 9px;
+  color: #7b8391;
+  padding: 6px 0 0 0;
+}
+.fmt th {
+  background: #dfe2e8;
+  background-image: linear-gradient(180deg, #f6f7f9 0%, #d9dde4 100%);
+  border-bottom: 1px solid #b4bac5;
+  border-right: 1px solid #cbd0d8;
+  padding: 5px 9px;
+  font-size: 10px;
+  text-align: left;
+  color: #2b3340;
+}
+.fmt td {
+  border-bottom: 1px solid #e2e5ea;
+  border-right: 1px solid #eceef1;
+  padding: 5px 9px;
+  font-size: 10px;
+  color: #5c6675;
+}
+.fmt tr:last-child td { border-bottom: none; }
+.fmt td.yes { color: #1d6b2f; font-weight: bold; }
+.fmt td b { color: #2b3340; }
+
+/* alpha notice */
+.notice {
+  border: 1px solid #d8b96a;
+  background: #fdf8e8;
+  background-image: linear-gradient(180deg, #fffdf5 0%, #fbf3dd 100%);
+  padding: 12px 14px;
+  margin: 20px 0 0 0;
+}
+.notice h4 {
+  margin: 0 0 6px 0;
+  font-size: 11px;
+  color: #6b4e0e;
+}
+.notice p { margin: 0 0 8px 0; font-size: 10px; line-height: 1.7; color: #6d5a2c; }
+.notice p:last-child { margin-bottom: 0; }
+.notice code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  background: #ffffff;
+  border: 1px solid #e0d3a8;
+  padding: 1px 4px;
+  color: #7a5a10;
+}
+
+/* download strip */
+.dlstrip {
+  border: 1px solid #b4bac5;
+  background: #f4f5f8;
+  background-image: linear-gradient(180deg, #ffffff 0%, #eef0f4 100%);
+  margin: 20px 0 0 0;
+}
+.dlstrip table { width: 100%; border-collapse: collapse; }
+.dlstrip .dlleft { padding: 15px 16px; vertical-align: middle; }
+.dlstrip .dlright {
+  padding: 15px 16px;
+  vertical-align: middle;
+  text-align: right;
+  white-space: nowrap;
+  border-left: 1px solid #dfe2e8;
+}
+.dlstrip h4 {
+  margin: 0 0 4px 0;
+  font-size: 12px;
+  color: #1d2531;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: normal;
+  font-size: 17px;
+}
+.dlstrip p { margin: 0; font-size: 10px; line-height: 1.6; color: #6b7583; }
+
+/* ---------- footer ---------- */
+.footrule {
+  height: 3px;
+  background-image: linear-gradient(90deg, #b5121b 0%, #b5121b 33%, #4a5666 33%, #4a5666 66%, #ff9c3f 66%, #ff9c3f 100%);
+}
+.foot {
+  background: #eceef2;
+  border-top: 1px solid #ffffff;
+  padding: 13px 16px 16px 16px;
+  font-size: 10px;
+  color: #6b7583;
+  line-height: 1.75;
+}
+.foot .links { margin-bottom: 7px; }
+.foot .links a { color: #4a5666; text-decoration: none; }
+.foot .links a:hover { text-decoration: underline; color: #b5121b; }
+.foot .fine { color: #8a92a0; }
+
+
+/* ---------- how it's built ---------- */
+.built {
+  border: 1px solid #b4bac5;
+  background: #f7f8fa;
+  background-image: linear-gradient(180deg, #ffffff 0%, #f0f2f6 100%);
+  padding: 14px 16px;
+  margin: 0 0 4px 0;
+}
+.built p { font-size: 10px; line-height: 1.75; color: #4f5967; margin: 0 0 9px 0; }
+.built p:last-child { margin-bottom: 0; }
+.built p b { color: #1d2531; }
+
+.checks { margin: 10px 0 9px 0; padding: 0; list-style: none; }
+.checks li {
+  font-size: 10px;
+  line-height: 1.6;
+  color: #4f5967;
+  padding: 2px 0 2px 17px;
+  position: relative;
+}
+.checks li:before {
+  content: "";
+  position: absolute;
+  left: 2px; top: 7px;
+  width: 6px; height: 3px;
+  border-left: 2px solid #1d6b2f;
+  border-bottom: 2px solid #1d6b2f;
+  transform: rotate(-45deg);
+}
+
+/* ---------- pricing ---------- */
+.price { width: 100%; border-collapse: collapse; border: 1px solid #9aa2ae; margin: 0 0 6px 0; }
+.price th, .price td { border-right: 1px solid #c8cdd6; vertical-align: top; }
+.price th:last-child, .price td:last-child { border-right: none; }
+
+.price th.tier {
+  background-image: linear-gradient(180deg, #f6f7f9 0%, #dcdfe6 48%, #ccd1da 52%, #dfe2e8 100%);
+  border-bottom: 1px solid #9aa2ae;
+  padding: 9px 11px 10px 11px;
+  text-align: left;
+  width: 33.33%;
+}
+.price th.tier.best {
+  background-image: linear-gradient(180deg, #fff6e2 0%, #fbeac4 48%, #f6dfae 52%, #fdf2dd 100%);
+  border-bottom: 1px solid #c9a44e;
+}
+.price th.tier.free {
+  background-image: linear-gradient(180deg, #eef7f0 0%, #d9ecdd 48%, #c9e2ce 52%, #e7f4e9 100%);
+  border-bottom: 1px solid #7ba985;
+}
+.tiername { font-size: 11px; color: #1d2531; margin: 0 0 5px 0; }
+.tiertag {
+  display: inline-block;
+  font-size: 8px;
+  font-weight: normal;
+  letter-spacing: 0.6px;
+  color: #ffffff;
+  background: #b5121b;
+  padding: 1px 5px 2px 5px;
+  margin-left: 5px;
+  vertical-align: 1px;
+}
+.tiertag.grn { background: #2f7a41; }
+.tierprice {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 26px;
+  font-weight: normal;
+  color: #1d2531;
+  line-height: 1;
+}
+.tierprice small {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  color: #6b7583;
+  font-weight: normal;
+}
+.tiersub { font-size: 9px; font-weight: normal; color: #6b7583; margin: 5px 0 0 0; line-height: 1.5; }
+
+.price td.cell { padding: 11px 11px 13px 11px; background: #ffffff; }
+.price td.cell ul { margin: 0; padding: 0; list-style: none; }
+.price td.cell li {
+  font-size: 10px;
+  line-height: 1.55;
+  color: #5c6675;
+  padding: 3px 0 3px 13px;
+  position: relative;
+}
+.price td.cell li:before {
+  content: "";
+  position: absolute;
+  left: 1px; top: 9px;
+  width: 4px; height: 4px;
+  background: #98a0ac;
+}
+.price td.cell li.no { color: #9aa2ae; }
+.price td.cell li.no:before { background: #d3d7de; }
+.price td.buy { padding: 0 11px 13px 11px; background: #ffffff; }
+
+/* ---------- account ---------- */
+.acct {
+  border: 1px solid #b4bac5;
+  background: #f4f5f8;
+  background-image: linear-gradient(180deg, #ffffff 0%, #eef0f4 100%);
+  margin: 0 0 4px 0;
+}
+.acct table { width: 100%; border-collapse: collapse; }
+.acct .pane { padding: 14px 16px 16px 16px; vertical-align: top; width: 50%; }
+.acct .pane.right { border-left: 1px solid #dfe2e8; }
+.acct h4 {
+  margin: 0 0 4px 0;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: normal;
+  font-size: 16px;
+  color: #1d2531;
+}
+.acct .hint { font-size: 10px; line-height: 1.6; color: #6b7583; margin: 0 0 10px 0; }
+
+.field { margin: 0 0 8px 0; }
+.field label {
+  display: block;
+  font-size: 10px;
+  color: #4a5666;
+  margin: 0 0 3px 0;
+}
+.field input {
+  width: 100%;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+  padding: 4px 6px;
+  color: #1d2531;
+  background: #ffffff;
+  border: 1px solid #8c93a0;
+  border-top-color: #5f6773;
+  border-left-color: #5f6773;
+}
+.field input:focus { outline: 2px solid #ff9c3f; outline-offset: -1px; }
+.field input[readonly] { background: #f0f1f4; color: #5c6675; }
+
+.checkrow { font-size: 10px; color: #5c6675; margin: 2px 0 10px 0; line-height: 1.55; }
+.checkrow input { vertical-align: -1px; margin: 0 5px 0 0; }
+.formnote { font-size: 9px; color: #7b8391; line-height: 1.6; margin: 9px 0 0 0; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1180px) {
+  body { padding-bottom: 0; }
+  .shell { border-left: none; border-right: none; }
+}
+
+@media (max-width: 860px) {
+  .hero table, .hero tr, .herocopy, .herobox,
+  .cols, .cols tr, .side, .main {
+    display: block;
+    width: auto;
+  }
+  .herocopy { width: auto; padding: 20px 18px 18px 18px; }
+  .herobox {
+    padding: 20px 18px 22px 18px;
+    border-left: none;
+    border-top: 1px solid #d4d8e0;
+  }
+  .side {
+    width: auto;
+    border-right: none;
+    border-bottom: 1px solid #d8dbe2;
+  }
+  .main { padding: 0 18px 26px 18px; }
+  h1 { font-size: 24px; }
+  .navbar table { width: 100%; }
+  .navbar td { padding: 5px 10px; }
+}
+
+@media (max-width: 700px) {
+  .masthead table, .masthead tr, .brandcell, .utility {
+    display: block;
+    width: auto;
+    text-align: left;
+  }
+  .utility { padding: 0 0 11px 14px; }
+  .navbar td { display: inline-block; border-right: none; }
+  .navbar td.first { border-left: none; }
+
+  .feat, .feat tr, .feat td { display: block; width: auto; }
+  .feat td { padding: 0 0 15px 0; }
+
+  .price, .price tr, .price th, .price td { display: block; width: auto; }
+  .price th.tier { border-right: none; }
+  .price td.cell { padding-bottom: 4px; }
+  .price td.buy { padding-bottom: 18px; border-bottom: 1px solid #c8cdd6; }
+
+  .acct table, .acct tr, .acct .pane { display: block; width: auto; }
+  .acct .pane.right { border-left: none; border-top: 1px solid #dfe2e8; }
+
+  .dlstrip table, .dlstrip tr, .dlstrip .dlleft, .dlstrip .dlright {
+    display: block;
+    width: auto;
+    text-align: left;
+  }
+  .dlstrip .dlright { border-left: none; padding-top: 0; }
+
+  .fmt { display: block; overflow-x: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* ---------- sub-page additions ---------- */
+.page { padding: 24px 26px 30px 26px; }
+.page h2 {
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 24px;
+  font-weight: normal;
+  color: #1d2531;
+  margin: 0 0 6px 0;
+}
+.page .sub { font-size: 10px; color: #7b8391; margin: 0 0 20px 0; }
+.page h3 {
+  font-size: 11px;
+  font-weight: bold;
+  color: #1d2531;
+  margin: 20px 0 6px 0;
+}
+.page p { font-size: 11px; line-height: 1.72; color: #454e5c; margin: 0 0 10px 0; }
+.page ul { margin: 0 0 12px 0; padding: 0 0 0 17px; }
+.page li { font-size: 11px; line-height: 1.7; color: #454e5c; margin: 0 0 3px 0; }
+.page code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  background: #f2f3f6;
+  border: 1px solid #dbdfe6;
+  padding: 1px 4px;
+  color: #3d4653;
+}
+
+.plain { width: 100%; border-collapse: collapse; border: 1px solid #b4bac5; margin: 0 0 14px 0; }
+.plain th {
+  background-image: linear-gradient(180deg, #f6f7f9 0%, #d9dde4 100%);
+  border-bottom: 1px solid #b4bac5;
+  border-right: 1px solid #cbd0d8;
+  padding: 5px 9px; font-size: 10px; text-align: left; color: #2b3340;
+}
+.plain td {
+  border-bottom: 1px solid #e2e5ea;
+  border-right: 1px solid #eceef1;
+  padding: 6px 9px; font-size: 10px; color: #5c6675; vertical-align: top;
+}
+.plain tr:last-child td { border-bottom: none; }
+.plain td b, .plain td code { color: #2b3340; }
+
+.rel-entry { border-top: 1px solid #e2e5ea; padding: 16px 0 4px 0; }
+.rel-entry:first-of-type { border-top: none; padding-top: 6px; }
+.rel-ver {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 19px; color: #1d2531; margin: 0 0 2px 0;
+}
+.rel-date { font-size: 9px; color: #8a92a0; margin: 0 0 10px 0; letter-spacing: 0.4px; }
+.rel-tag {
+  display: inline-block; font-size: 8px; letter-spacing: .6px;
+  color: #ffffff; background: #2f7a41; padding: 1px 5px 2px 5px;
+  margin-left: 6px; vertical-align: 3px;
+}
+.rel-tag.fix { background: #b5121b; }
+
+.err { text-align: center; padding: 60px 26px 70px 26px; }
+.err .code {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 62px; color: #c9cdd6; line-height: 1; margin: 0 0 6px 0;
+}
+.err h2 { font-size: 22px; margin-bottom: 10px; }
+.err p { max-width: 44ch; margin-left: auto; margin-right: auto; }
+
+/* ---------- mobile ----------
+   Appended last so these override the base rules above. The desktop design
+   uses 10-11px type, which is too small to read comfortably on a phone, so
+   text scales up rather than the layout merely narrowing. */
+
+html { -webkit-text-size-adjust: 100%; }
+
+@media (max-width: 860px) {
+  body, html { overflow-x: hidden; }
+  .shell { overflow-x: hidden; }
+
+  /* sub-pages: privacy, release notes, 404 */
+  .page { padding: 20px 18px 26px 18px; }
+  .page h2 { font-size: 22px; }
+  .page p, .page li { font-size: 13px; line-height: 1.75; }
+  .page h3 { font-size: 13px; margin-top: 22px; }
+  .page .sub { font-size: 11px; }
+  .page code { font-size: 12px; }
+
+  .err { padding: 44px 18px 50px 18px; }
+  .err .code { font-size: 52px; }
+}
+
+@media (max-width: 700px) {
+  /* readable body copy */
+  p.body { font-size: 13px; line-height: 1.75; }
+  .lede { font-size: 13px; line-height: 1.75; }
+  .built p { font-size: 12.5px; line-height: 1.78; }
+  .checks li { font-size: 12.5px; line-height: 1.7; }
+  .feat h3 { font-size: 13px; }
+  .feat p { font-size: 12.5px; line-height: 1.7; }
+  .secbar { font-size: 13px; padding: 7px 12px; }
+  .notice p { font-size: 12.5px; line-height: 1.78; }
+  .notice h4 { font-size: 13px; }
+  .notice code { font-size: 12px; }
+  .kicker { font-size: 12px; }
+
+  /* header */
+  h1 { font-size: 23px; line-height: 1.2; }
+  .wordmark { font-size: 23px; }
+  .utility { font-size: 12px; }
+  .utility a { padding: 4px 0; display: inline-block; }
+
+  /* nav: bigger tap targets, wraps to as many rows as needed */
+  .navbar td { padding: 0; }
+  .navbar td a {
+    display: block;
+    padding: 11px 13px;
+    font-size: 12px;
+  }
+
+  /* sidebar blocks */
+  .sidehead { font-size: 12px; padding: 7px 14px; }
+  .specbox { padding: 11px 14px 14px 14px; }
+  .spectbl th, .spectbl td { font-size: 12px; padding: 4px 0; }
+  .spectbl th { width: 82px; }
+  .pullquote { font-size: 12.5px; line-height: 1.7; margin: 4px 14px 0 14px; }
+  .pullquote cite { font-size: 11px; }
+
+  /* buttons: 44px minimum tap target */
+  .btn {
+    display: block;
+    text-align: center;
+    padding: 12px 18px;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  .btn.primary { font-size: 14px; padding: 13px 20px; }
+  .btn.small { font-size: 12px; padding: 11px 16px; }
+  .btn + .btn { margin-left: 0; }
+  .dlnote { font-size: 12px; line-height: 1.7; }
+  .boxcap { font-size: 12px; }
+
+  /* pricing */
+  .price th.tier { padding: 12px 14px; }
+  .tiername { font-size: 13px; }
+  .tierprice { font-size: 30px; }
+  .tierprice small { font-size: 12px; }
+  .tiersub { font-size: 11px; }
+  .price td.cell { padding: 12px 14px 6px 14px; }
+  .price td.cell li { font-size: 12.5px; line-height: 1.65; padding: 5px 0 5px 14px; }
+  .price td.cell li:before { top: 12px; }
+  .price td.buy { padding: 0 14px 16px 14px; }
+
+  /* forms: 16px prevents iOS Safari zooming on focus */
+  .acct .pane { padding: 16px 14px 18px 14px; }
+  .acct h4 { font-size: 17px; }
+  .acct .hint { font-size: 12.5px; line-height: 1.7; }
+  .field label { font-size: 12px; margin-bottom: 5px; }
+  .field input {
+    font-size: 16px;
+    padding: 10px 9px;
+  }
+  .field { margin-bottom: 12px; }
+  .checkrow { font-size: 12.5px; line-height: 1.6; }
+  .checkrow input { width: 17px; height: 17px; vertical-align: -3px; }
+  .formnote { font-size: 11.5px; line-height: 1.65; }
+
+  /* download strip */
+  .dlstrip .dlleft { padding: 16px 14px 6px 14px; }
+  .dlstrip .dlright { padding: 0 14px 16px 14px; }
+  .dlstrip h4 { font-size: 18px; }
+  .dlstrip p { font-size: 12.5px; line-height: 1.7; }
+
+  /* wide data tables scroll rather than squash */
+  .fmt, .plain {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .fmt th, .fmt td, .plain th, .plain td {
+    font-size: 12.5px;
+    padding: 8px 10px;
+    white-space: normal;
+  }
+  .fmt caption { font-size: 11px; }
+
+  /* footer */
+  .foot { padding: 15px 16px 20px 16px; font-size: 12px; }
+  .foot .links { line-height: 2.2; }
+  .foot .links a { padding: 3px 0; }
+  .foot .fine { font-size: 11px; line-height: 1.7; }
+
+  /* release notes */
+  .rel-ver { font-size: 20px; }
+  .rel-date { font-size: 10.5px; }
+}
+
+@media (max-width: 420px) {
+  .herocopy, .herobox { padding-left: 14px; padding-right: 14px; }
+  .main { padding-left: 14px; padding-right: 14px; }
+  h1 { font-size: 21px; }
+  .wordmark { font-size: 21px; }
+  .prodbox { transform: scale(.92); }
+  .tierprice { font-size: 27px; }
+  .page { padding-left: 14px; padding-right: 14px; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- masthead -->
+  <div class="masthead">
+    <table>
+      <tr>
+        <td class="brandcell">
+          <span class="logomark"></span><span class="wordmark">Py<em>Draft</em><span>2D CAD SYSTEM</span></span>
+        </td>
+        <td class="utility">
+          <a href="#">Support</a> &nbsp;|&nbsp; <a href="#">Contact</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- nav -->
+  <div class="navbar">
+    <table>
+      <tr>
+        <td class="first on"><a href="#">Product</a></td>
+        <td><a href="#formats">File Formats</a></td>
+        <td><a href="#howbuilt">How It's Built</a></td>
+        <td><a href="#pricing">Pricing</a></td>
+        <td><a href="#download">Download</a></td>
+        <td><a href="releases.html">Release Notes</a></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- hero -->
+  <div class="hero">
+    <table>
+      <tr>
+        <td class="herocopy">
+          <p class="kicker">Now in public alpha &mdash; free for testers</p>
+          <h1>Real drafting. One file.<br>No subscription.</h1>
+          <p class="lede">PyDraft is a 2D drafting program for people who cut parts. It draws lines, arcs, and dimensions the way you expect, exports clean <b>DXF</b> and <b>G&#8209;code</b>, and runs from a single executable you can carry on a USB stick.</p>
+          <p class="lede">One person builds it, <b>with AI assistance and no attempt to hide that</b> &mdash; see <a href="#howbuilt">how it's built</a>. No installer, no cloud, no account needed to run it.</p>
+          <p style="margin:0;">
+            <a class="btn primary" href="#download">Download for Windows</a>
+            <a class="btn" href="#formats">See what it exports</a>
+          </p>
+          <p class="dlnote">Version 0.9-alpha &nbsp;&middot;&nbsp; 8.4 MB &nbsp;&middot;&nbsp; Windows 10 &amp; 11<br>
+          Windows may warn about an unknown publisher. Choose <b>More info &rarr; Run anyway</b>. That is normal for independent software that is not code-signed yet.</p>
+        </td>
+        <td class="herobox">
+          <div class="boxwrap">
+            <div class="prodbox">
+              <span class="spine"></span>
+              <span class="glyph">
+                <i class="v"></i><i class="h"></i><i class="d"></i><i class="dot"></i>
+              </span>
+              <span class="title">PyDraft<span>2D CAD SYSTEM</span></span>
+              <span class="rel">VERSION 0.9</span>
+            </div>
+          </div>
+          <p class="boxcap">Single executable.<br>Nothing to install.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- body -->
+  <table class="cols">
+    <tr>
+      <!-- sidebar -->
+      <td class="side">
+        <div class="sidehead">System Requirements</div>
+        <div class="specbox">
+          <table class="spectbl">
+            <tr><th>System</th><td>Windows 10 or 11, 64-bit</td></tr>
+            <tr><th>Memory</th><td>512 MB RAM</td></tr>
+            <tr><th>Disk</th><td>20 MB free</td></tr>
+            <tr><th>Display</th><td>1024 &times; 768 or higher</td></tr>
+            <tr><th>Other</th><td>Runs from source on macOS and Linux with Python 3.10+</td></tr>
+          </table>
+        </div>
+
+        <div class="sidehead">Future Testimonials</div>
+        <div class="pullquote">
+          This space is for what testers say once they have actually cut something. Nothing invented goes here.
+          <cite>&mdash; Send yours from Help &rarr; Send Bug Report</cite>
+        </div>
+      </td>
+
+      <!-- main -->
+      <td class="main">
+
+        <div class="secbar first">What PyDraft Does</div>
+        <p class="body">PyDraft is a drafting program in the classic sense. You type a command or click a tool, you pick points, you get geometry. Everything happens on your machine, in one window, with a command line at the bottom that behaves the way drafting command lines have behaved for thirty years.</p>
+        <p class="body">It was written by one person who needed a CAD program for a hobby CNC machine and got tired of watching free tiers disappear. The whole program is a single Python file with no external dependencies, which is why the download is small and why it will still run in ten years.</p>
+
+        <div class="secbar">Tools Included</div>
+        <table class="feat">
+          <tr>
+            <td>
+              <h3><b></b>Draw</h3>
+              <p>Line, polyline, rectangle, circle, arc, ellipse, ray, point, and text. Object snapping to endpoints, midpoints, centers, and intersections.</p>
+            </td>
+            <td>
+              <h3><b></b>Modify</h3>
+              <p>Move, copy, rotate, scale, mirror, offset, trim, extend, fillet, chamfer, explode, and erase. Trim works on lines, arcs, circles, and polylines.</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h3><b></b>Weld and Warp</h3>
+              <p>Join connected geometry into a single polyline, or reshape a polyline by dragging vertices and inserting new ones.</p>
+            </td>
+            <td>
+              <h3><b></b>Dimensions</h3>
+              <p>Linear, aligned, radius, diameter, circumference, and angular. Metric, decimal inch, fractional inch, and architectural feet-inches.</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h3><b></b>Layers</h3>
+              <p>Named layers with color, visibility, and lock. Deleting a layer asks what to do with the objects on it instead of refusing.</p>
+            </td>
+            <td>
+              <h3><b></b>Model and Paper Space</h3>
+              <p>Draft at real size, then switch to a paper layout for borders and title blocks. Each space keeps its own geometry.</p>
+            </td>
+          </tr>
+        </table>
+
+        <a name="formats"></a>
+        <div class="secbar">File Formats</div>
+        <table class="fmt">
+          <caption>G-code export is a straightforward profile post. Check feeds, depths, and tool offsets before you cut.</caption>
+          <tr>
+            <th style="width:96px;">Format</th>
+            <th style="width:58px;">Open</th>
+            <th style="width:58px;">Save</th>
+            <th>Notes</th>
+          </tr>
+          <tr>
+            <td><b>.pdc</b></td>
+            <td class="yes">Yes</td>
+            <td class="yes">Yes</td>
+            <td>Native format. Plain JSON, so it survives you.</td>
+          </tr>
+          <tr>
+            <td><b>.dxf</b></td>
+            <td class="yes">Yes</td>
+            <td class="yes">Yes</td>
+            <td>AutoCAD R14 ASCII. Opens in Fusion, LibreCAD, SheetCam.</td>
+          </tr>
+          <tr>
+            <td><b>.svg</b></td>
+            <td>&mdash;</td>
+            <td class="yes">Yes</td>
+            <td>Vector export for laser cutters and documentation.</td>
+          </tr>
+          <tr>
+            <td><b>.pdf</b></td>
+            <td>&mdash;</td>
+            <td class="yes">Yes</td>
+            <td>True vector PDF, fitted to Letter, Legal, A4, or A3.</td>
+          </tr>
+          <tr>
+            <td><b>.nc</b></td>
+            <td>&mdash;</td>
+            <td class="yes">Yes</td>
+            <td>Basic G-code. Arcs as G2/G3, units from the drawing.</td>
+          </tr>
+        </table>
+
+        <a name="howbuilt"></a>
+        <div class="secbar">How It's Built</div>
+        <div class="built">
+          <p><b>PyDraft is written with AI assistance, by one person.</b> I am a CNC hobbyist, not a career software engineer. I designed this program, I decide what goes in it, I test it on my own machine, and I am the one who answers when it breaks. A large language model writes a lot of the code under my direction. I would rather tell you that plainly than have you find out later.</p>
+          <p>The reasonable question is whether that makes it junk. Here is what actually stands behind the build, so you can judge it yourself:</p>
+          <ul class="checks">
+            <li>Every release is run against an automated test suite &mdash; several hundred checks covering geometry math, trim and offset behavior, file round-trips, and unit conversion.</li>
+            <li>Geometry is verified numerically, not by eye. If a fillet lands in the wrong place or a DXF loses an arc, a test fails before you ever see it.</li>
+            <li>The entire program is a single readable Python file. Nothing is hidden, obfuscated, or minified. Open it and check my work.</li>
+            <li>It is used on a real plasma table cutting real parts, which is a harsher test than any of the above.</li>
+          </ul>
+          <p>Every CAD program on the market now uses AI somewhere in its development. The difference here is that you are being told. If that is a dealbreaker for you, I respect it &mdash; download it anyway, run it against a part you already know the dimensions of, and let the output decide.</p>
+        </div>
+
+        <a name="pricing"></a>
+        <div class="secbar">Pricing &amp; Licensing</div>
+        <p class="body">PyDraft is free during the alpha and will stay free for everyone testing it now. When version 1.0 ships, buying it once will be the normal way to own it. The monthly option exists for people who want a cheap way in, not because I want a recurring bill from you.</p>
+
+        <table class="price">
+          <tr>
+            <th class="tier free">
+              <p class="tiername">Alpha Tester<span class="tiertag grn">YOU, NOW</span></p>
+              <span class="tierprice">Free</span>
+              <p class="tiersub">Forever. Not a trial.</p>
+            </th>
+            <th class="tier">
+              <p class="tiername">Monthly</p>
+              <span class="tierprice">$10<small> / month</small></span>
+              <p class="tiersub">Cancel any time. Stops working when you stop paying.</p>
+            </th>
+            <th class="tier best">
+              <p class="tiername">Own It<span class="tiertag">RECOMMENDED</span></p>
+              <span class="tierprice">$149<small> once</small></span>
+              <p class="tiersub">Yours permanently. Pays for itself in 15 months.</p>
+            </th>
+          </tr>
+          <tr>
+            <td class="cell">
+              <ul>
+                <li>Every feature, no limits</li>
+                <li>All future 1.x updates</li>
+                <li>Keeps working if I stop selling it</li>
+                <li>Locked to your tester ID</li>
+              </ul>
+            </td>
+            <td class="cell">
+              <ul>
+                <li>Every feature, no limits</li>
+                <li>Updates while subscribed</li>
+                <li class="no">Stops at the end of the billing period</li>
+                <li>Credit applies if you upgrade to permanent</li>
+              </ul>
+            </td>
+            <td class="cell">
+              <ul>
+                <li>Every feature, no limits</li>
+                <li>All 1.x updates included</li>
+                <li>No expiry, no phone-home, no account required to run it</li>
+                <li>Runs offline forever</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td class="buy"><a class="btn small" href="#download">Download the alpha</a></td>
+            <td class="buy"><a class="btn small" href="#account">Notify me at launch</a></td>
+            <td class="buy"><a class="btn primary" href="#account">Notify me at launch</a></td>
+          </tr>
+        </table>
+        <p class="body" style="font-size:10px;color:#6b7583;">Nothing is for sale yet &mdash; these prices are published now so nobody is surprised later. Alpha testers are never charged, whatever the final price turns out to be.</p>
+
+        <div class="secbar">Alpha Program</div>
+        <p class="body">PyDraft is not finished, and the alpha is how it gets finished. Testers get the program free now and keep it free forever &mdash; when the paid version ships, your tester ID unlocks it at no charge. This is not a trial that expires.</p>
+
+        <div class="notice">
+          <h4>Before you download, three things</h4>
+          <p><b>1.</b> There will be bugs. Use <code>Help &rarr; Send Bug Report</code> inside the program. It takes ten seconds and it is the single most useful thing a tester can do.</p>
+          <p><b>2.</b> Your tester ID lives in <code>Help &rarr; About</code>. Copy it somewhere safe. It is what proves you were here early, and it is stored only on your machine.</p>
+          <p><b>3.</b> Bug reports include your operating system, memory, and screen size unless you uncheck that box. Your drawing is never sent unless you explicitly tick the option. Full detail on the <a href="privacy.html">privacy page</a>.</p>
+        </div>
+
+        <a name="download"></a>
+        <div class="dlstrip">
+          <table>
+            <tr>
+              <td class="dlleft">
+                <h4>PyDraft 0.9-alpha for Windows</h4>
+                <p>Single executable, 8.4 MB. Nothing to install &mdash; download it, double-click it, draw something.<br>
+                Source code also available for macOS and Linux.</p>
+              </td>
+              <td class="dlright">
+                <a class="btn primary" href="#">Download Now</a><br>
+                <span style="display:inline-block;height:7px;"></span>
+                <a class="btn small" href="#">Get the source</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <a name="account"></a>
+        <div class="secbar">Your Account</div>
+        <p class="body">An account does one job: it ties your tester ID to an email address so your free license can be restored if you reinstall Windows, swap machines, or lose the ID. You do not need an account to download or run PyDraft.</p>
+
+        <div class="acct">
+          <table>
+            <tr>
+              <td class="pane">
+                <h4>Register your tester ID</h4>
+                <p class="hint">Find your ID in the program under <b>Help &rarr; About</b>, then paste it here. This is what guarantees your copy stays free after launch.</p>
+                <div class="field">
+                  <label for="em">Email address</label>
+                  <input id="em" type="email" placeholder="you@example.com" autocomplete="email">
+                </div>
+                <div class="field">
+                  <label for="tid">Tester ID</label>
+                  <input id="tid" type="text" placeholder="PYDRAFT-ALPHA-XXXX-XXXX" spellcheck="false">
+                </div>
+                <div class="field">
+                  <label for="mach">What are you cutting on? (optional)</label>
+                  <input id="mach" type="text" placeholder="Plasma table, router, laser, none yet">
+                </div>
+                <p class="checkrow"><input id="news" type="checkbox"> <label for="news" style="display:inline;">Email me when a new version is out. Roughly monthly, never sold or shared.</label></p>
+                <a class="btn primary" href="#">Register my copy</a>
+                <p class="formnote">Stored: your email, tester ID, and machine type. Nothing else. No password &mdash; you get a sign-in link by email when you need one.</p>
+              </td>
+              <td class="pane right">
+                <h4>Recover a lost ID</h4>
+                <p class="hint">Reinstalled and lost your tester ID? Enter the email you registered with and it will be sent back to you.</p>
+                <div class="field">
+                  <label for="em2">Email address</label>
+                  <input id="em2" type="email" placeholder="you@example.com" autocomplete="email">
+                </div>
+                <a class="btn" href="#">Send my ID</a>
+
+                <p class="hint" style="margin:18px 0 10px 0;padding-top:14px;border-top:1px solid #dfe2e8;"><b style="color:#1d2531;">Not a tester yet?</b><br>There is nothing to sign up for. Download the alpha, open it, and an ID is generated for you on first launch. Come back and register it when you are ready.</p>
+                <a class="btn small" href="#download">Download the alpha</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </td>
+    </tr>
+  </table>
+
+  <div class="footrule"></div>
+  <div class="foot">
+    <div class="links">
+      <a href="#">Home</a> | <a href="#formats">File Formats</a> | <a href="#howbuilt">How It's Built</a> | <a href="#pricing">Pricing</a> | <a href="#download">Download</a> | <a href="#account">Account</a> | <a href="#">Report a Bug</a> | <a href="releases.html">Release Notes</a> | <a href="privacy.html">Privacy</a> | <a href="#">Contact</a>
+    </div>
+    <div class="fine">
+      Copyright &copy; 2026 PyDraft. All rights reserved.<br>
+      DXF is a format originated by Autodesk, Inc. Product names mentioned are trademarks of their respective owners.
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

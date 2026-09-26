@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy - PyDraft 2D CAD</title>
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 0 30px 0;
+  background: #7a8290;
+  background-image:
+    linear-gradient(180deg, #5c6472 0px, #7a8290 220px, #7a8290 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: #333333;
+}
+
+a { color: #003366; text-decoration: underline; }
+a:visited { color: #663399; }
+a:hover { color: #cc3300; }
+
+.shell {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-left: 1px solid #2b3340;
+  border-right: 1px solid #2b3340;
+  border-bottom: 1px solid #2b3340;
+}
+
+/* ---------- masthead ---------- */
+.masthead {
+  background: #1d2531;
+  background-image: linear-gradient(180deg, #39434f 0%, #1d2531 100%);
+  border-bottom: 1px solid #000000;
+  padding: 0;
+}
+.masthead table { width: 100%; border-collapse: collapse; }
+.brandcell { padding: 11px 0 9px 14px; vertical-align: middle; }
+
+.logomark {
+  display: inline-block;
+  width: 34px; height: 34px;
+  vertical-align: middle;
+  margin-right: 9px;
+  background: #c8ccd4;
+  background-image: linear-gradient(150deg, #ffffff 0%, #b3b9c4 55%, #7d8593 100%);
+  border: 1px solid #10161f;
+  position: relative;
+}
+.logomark:after {
+  content: "";
+  position: absolute;
+  left: 7px; top: 22px;
+  width: 20px; height: 1px;
+  background: #10161f;
+  box-shadow: 4px -8px 0 0 #10161f, 12px -14px 0 0 #10161f;
+}
+.logomark:before {
+  content: "";
+  position: absolute;
+  left: 8px; top: 7px;
+  width: 1px; height: 16px;
+  background: #b5121b;
+}
+
+.wordmark {
+  display: inline-block;
+  vertical-align: middle;
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 25px;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+.wordmark em { font-style: normal; color: #ff9c3f; }
+.wordmark span {
+  display: block;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 9px;
+  letter-spacing: 2.4px;
+  color: #93a0b2;
+  margin-top: 1px;
+}
+
+.utility {
+  padding: 0 14px 0 0;
+  text-align: right;
+  vertical-align: middle;
+  font-size: 10px;
+  color: #7d8a9c;
+}
+.utility a { color: #b9c5d4; text-decoration: none; }
+.utility a:visited { color: #b9c5d4; }
+.utility a:hover { color: #ffffff; text-decoration: underline; }
+
+/* ---------- nav strip ---------- */
+.navbar {
+  background: #d7dae0;
+  background-image: linear-gradient(180deg, #fdfdfe 0%, #d2d6dd 48%, #bcc2cc 52%, #d7dbe1 100%);
+  border-bottom: 1px solid #8c93a0;
+  border-top: 1px solid #ffffff;
+  padding: 0;
+}
+.navbar table { border-collapse: collapse; }
+.navbar td {
+  padding: 5px 15px 5px 15px;
+  font-size: 10px;
+  font-weight: bold;
+  border-right: 1px solid #a9b0bb;
+  white-space: nowrap;
+}
+.navbar td.first { border-left: 1px solid #ffffff; }
+.navbar a { color: #2b3340; text-decoration: none; }
+.navbar a:visited { color: #2b3340; }
+.navbar a:hover { color: #b5121b; }
+.navbar td.on {
+  background: #ffffff;
+  background-image: linear-gradient(180deg, #ffffff 0%, #f3f4f7 100%);
+}
+
+
+/* ---------- hero ---------- */
+.hero { border-bottom: 1px solid #c3c8d1; }
+.hero table { width: 100%; border-collapse: collapse; }
+.herocopy {
+  width: 62%;
+  padding: 26px 26px 24px 26px;
+  vertical-align: top;
+  background: #ffffff;
+}
+.kicker {
+  font-size: 10px;
+  font-weight: bold;
+  color: #b5121b;
+  margin: 0 0 7px 0;
+  letter-spacing: 0.4px;
+}
+h1 {
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 27px;
+  line-height: 1.14;
+  font-weight: normal;
+  color: #1d2531;
+  margin: 0 0 11px 0;
+}
+.lede {
+  font-size: 11px;
+  line-height: 1.66;
+  color: #454e5c;
+  margin: 0 0 15px 0;
+}
+.lede b { color: #1d2531; }
+
+.herobox {
+  padding: 18px 18px 18px 0;
+  vertical-align: top;
+  background: #eceef2;
+  background-image: linear-gradient(160deg, #f7f8fa 0%, #dfe3ea 100%);
+  border-left: 1px solid #d4d8e0;
+  text-align: center;
+}
+
+/* the 3D product box, CSS only */
+.boxwrap { padding: 14px 0 4px 0; }
+.prodbox {
+  display: inline-block;
+  position: relative;
+  width: 118px;
+  height: 152px;
+  background: #232b38;
+  background-image: linear-gradient(103deg, #39424f 0%, #232b38 34%, #1a212b 100%);
+  border: 1px solid #10161f;
+  box-shadow: 4px 5px 0 rgba(30,36,46,.30), 8px 9px 14px rgba(20,24,32,.28);
+  text-align: left;
+}
+.prodbox .spine {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 13px;
+  background-image: linear-gradient(90deg, #0e131b 0%, #2c3644 100%);
+  border-right: 1px solid #0b0f16;
+}
+.prodbox .glyph {
+  position: absolute;
+  left: 30px; top: 22px;
+  width: 58px; height: 46px;
+}
+.prodbox .glyph i {
+  position: absolute;
+  background: #ff9c3f;
+  display: block;
+}
+.prodbox .glyph i.h { height: 1px; width: 58px; top: 40px; left: 0; }
+.prodbox .glyph i.v { width: 1px; height: 40px; top: 0; left: 6px; }
+.prodbox .glyph i.d {
+  width: 52px; height: 1px; top: 21px; left: 5px;
+  transform: rotate(-38deg);
+  transform-origin: left center;
+  background: #ffffff;
+}
+.prodbox .glyph i.dot {
+  width: 5px; height: 5px; border-radius: 5px;
+  background: #b5121b; top: 38px; left: 4px;
+}
+.prodbox .title {
+  position: absolute;
+  left: 22px; right: 12px; bottom: 34px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 20px;
+  line-height: 1.05;
+  color: #ffffff;
+}
+.prodbox .title span {
+  display: block;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 7px;
+  letter-spacing: 1.7px;
+  color: #93a0b2;
+  margin-top: 5px;
+}
+.prodbox .rel {
+  position: absolute;
+  left: 22px; bottom: 15px;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #ff9c3f;
+}
+
+.boxcap {
+  font-size: 10px;
+  color: #6b7583;
+  margin: 12px 0 0 0;
+  line-height: 1.5;
+}
+
+/* ---------- beveled buttons ---------- */
+.btn {
+  display: inline-block;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 6px 17px 7px 17px;
+  border: 1px solid #2b3340;
+  border-top-color: #7e8798;
+  border-left-color: #7e8798;
+  background: #4a5666;
+  background-image: linear-gradient(180deg, #6c778a 0%, #4a5666 50%, #3b4553 51%, #2f3846 100%);
+  color: #ffffff !important;
+  cursor: pointer;
+}
+.btn:visited { color: #ffffff !important; }
+.btn:hover {
+  background-image: linear-gradient(180deg, #7e8a9c 0%, #58657a 50%, #464f5f 51%, #38414f 100%);
+  color: #ffffff !important;
+}
+.btn:active {
+  border-top-color: #2b3340;
+  border-left-color: #2b3340;
+  border-bottom-color: #7e8798;
+  border-right-color: #7e8798;
+}
+.btn.primary {
+  border-color: #6d0b11;
+  border-top-color: #e0656c;
+  border-left-color: #e0656c;
+  background-image: linear-gradient(180deg, #d94a52 0%, #b5121b 50%, #9c0f17 51%, #7c0c12 100%);
+  font-size: 12px;
+  padding: 8px 22px 9px 22px;
+}
+.btn.primary:hover {
+  background-image: linear-gradient(180deg, #e35a62 0%, #c31721 50%, #a81118 51%, #880d14 100%);
+}
+.btn.small { font-size: 10px; padding: 4px 11px 5px 11px; font-weight: normal; }
+.btn + .btn { margin-left: 6px; }
+
+.dlnote {
+  font-size: 10px;
+  color: #6b7583;
+  margin: 9px 0 0 0;
+  line-height: 1.55;
+}
+
+/* ---------- body columns ---------- */
+.cols { width: 100%; border-collapse: collapse; }
+.side {
+  width: 232px;
+  vertical-align: top;
+  background: #f4f5f8;
+  border-right: 1px solid #d8dbe2;
+  padding: 0 0 22px 0;
+}
+.main { vertical-align: top; padding: 0 20px 26px 20px; }
+
+.sidehead {
+  background: #c9cdd6;
+  background-image: linear-gradient(180deg, #eceef2 0%, #ccd1da 48%, #b9bfca 52%, #ccd0d9 100%);
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #a9b0bb;
+  padding: 5px 11px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #2b3340;
+}
+
+.specbox { padding: 9px 11px 12px 11px; }
+.spectbl { width: 100%; border-collapse: collapse; font-size: 10px; }
+.spectbl th {
+  text-align: left;
+  font-weight: bold;
+  color: #4a5666;
+  padding: 3px 0 3px 0;
+  vertical-align: top;
+  width: 62px;
+}
+.spectbl td { padding: 3px 0 3px 0; color: #5c6675; vertical-align: top; }
+
+.pullquote {
+  margin: 4px 11px 0 11px;
+  padding: 10px 11px;
+  background: #ffffff;
+  border: 1px solid #d8dbe2;
+  border-left: 3px solid #ff9c3f;
+  font-size: 10px;
+  line-height: 1.62;
+  color: #454e5c;
+}
+.pullquote cite {
+  display: block;
+  margin-top: 7px;
+  font-style: normal;
+  font-size: 9px;
+  color: #7b8391;
+}
+
+/* ---------- section chrome ---------- */
+.secbar {
+  background: #dfe2e8;
+  background-image: linear-gradient(180deg, #fafbfc 0%, #dcdfe6 48%, #ccd1da 52%, #dfe2e8 100%);
+  border: 1px solid #b4bac5;
+  border-left: 3px solid #b5121b;
+  padding: 5px 11px;
+  margin: 22px 0 13px 0;
+  font-size: 11px;
+  font-weight: bold;
+  color: #1d2531;
+}
+.secbar.first { margin-top: 20px; }
+
+p.body { font-size: 11px; line-height: 1.72; color: #454e5c; margin: 0 0 11px 0; }
+
+.feat { width: 100%; border-collapse: collapse; margin: 0 0 4px 0; }
+.feat td {
+  width: 50%;
+  vertical-align: top;
+  padding: 0 14px 15px 0;
+}
+.feat h3 {
+  font-size: 11px;
+  font-weight: bold;
+  color: #1d2531;
+  margin: 0 0 4px 0;
+}
+.feat h3 b {
+  display: inline-block;
+  width: 13px; height: 13px;
+  margin-right: 6px;
+  vertical-align: -2px;
+  background: #4a5666;
+  background-image: linear-gradient(150deg, #7d8798 0%, #3b4553 100%);
+  border: 1px solid #2b3340;
+}
+.feat p { font-size: 10px; line-height: 1.66; color: #5c6675; margin: 0 0 0 19px; }
+
+/* format table */
+.fmt { width: 100%; border-collapse: collapse; border: 1px solid #b4bac5; margin: 0 0 6px 0; }
+.fmt caption {
+  caption-side: bottom;
+  text-align: left;
+  font-size: 9px;
+  color: #7b8391;
+  padding: 6px 0 0 0;
+}
+.fmt th {
+  background: #dfe2e8;
+  background-image: linear-gradient(180deg, #f6f7f9 0%, #d9dde4 100%);
+  border-bottom: 1px solid #b4bac5;
+  border-right: 1px solid #cbd0d8;
+  padding: 5px 9px;
+  font-size: 10px;
+  text-align: left;
+  color: #2b3340;
+}
+.fmt td {
+  border-bottom: 1px solid #e2e5ea;
+  border-right: 1px solid #eceef1;
+  padding: 5px 9px;
+  font-size: 10px;
+  color: #5c6675;
+}
+.fmt tr:last-child td { border-bottom: none; }
+.fmt td.yes { color: #1d6b2f; font-weight: bold; }
+.fmt td b { color: #2b3340; }
+
+/* alpha notice */
+.notice {
+  border: 1px solid #d8b96a;
+  background: #fdf8e8;
+  background-image: linear-gradient(180deg, #fffdf5 0%, #fbf3dd 100%);
+  padding: 12px 14px;
+  margin: 20px 0 0 0;
+}
+.notice h4 {
+  margin: 0 0 6px 0;
+  font-size: 11px;
+  color: #6b4e0e;
+}
+.notice p { margin: 0 0 8px 0; font-size: 10px; line-height: 1.7; color: #6d5a2c; }
+.notice p:last-child { margin-bottom: 0; }
+.notice code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  background: #ffffff;
+  border: 1px solid #e0d3a8;
+  padding: 1px 4px;
+  color: #7a5a10;
+}
+
+/* download strip */
+.dlstrip {
+  border: 1px solid #b4bac5;
+  background: #f4f5f8;
+  background-image: linear-gradient(180deg, #ffffff 0%, #eef0f4 100%);
+  margin: 20px 0 0 0;
+}
+.dlstrip table { width: 100%; border-collapse: collapse; }
+.dlstrip .dlleft { padding: 15px 16px; vertical-align: middle; }
+.dlstrip .dlright {
+  padding: 15px 16px;
+  vertical-align: middle;
+  text-align: right;
+  white-space: nowrap;
+  border-left: 1px solid #dfe2e8;
+}
+.dlstrip h4 {
+  margin: 0 0 4px 0;
+  font-size: 12px;
+  color: #1d2531;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: normal;
+  font-size: 17px;
+}
+.dlstrip p { margin: 0; font-size: 10px; line-height: 1.6; color: #6b7583; }
+
+/* ---------- footer ---------- */
+.footrule {
+  height: 3px;
+  background-image: linear-gradient(90deg, #b5121b 0%, #b5121b 33%, #4a5666 33%, #4a5666 66%, #ff9c3f 66%, #ff9c3f 100%);
+}
+.foot {
+  background: #eceef2;
+  border-top: 1px solid #ffffff;
+  padding: 13px 16px 16px 16px;
+  font-size: 10px;
+  color: #6b7583;
+  line-height: 1.75;
+}
+.foot .links { margin-bottom: 7px; }
+.foot .links a { color: #4a5666; text-decoration: none; }
+.foot .links a:hover { text-decoration: underline; color: #b5121b; }
+.foot .fine { color: #8a92a0; }
+
+
+/* ---------- how it's built ---------- */
+.built {
+  border: 1px solid #b4bac5;
+  background: #f7f8fa;
+  background-image: linear-gradient(180deg, #ffffff 0%, #f0f2f6 100%);
+  padding: 14px 16px;
+  margin: 0 0 4px 0;
+}
+.built p { font-size: 10px; line-height: 1.75; color: #4f5967; margin: 0 0 9px 0; }
+.built p:last-child { margin-bottom: 0; }
+.built p b { color: #1d2531; }
+
+.checks { margin: 10px 0 9px 0; padding: 0; list-style: none; }
+.checks li {
+  font-size: 10px;
+  line-height: 1.6;
+  color: #4f5967;
+  padding: 2px 0 2px 17px;
+  position: relative;
+}
+.checks li:before {
+  content: "";
+  position: absolute;
+  left: 2px; top: 7px;
+  width: 6px; height: 3px;
+  border-left: 2px solid #1d6b2f;
+  border-bottom: 2px solid #1d6b2f;
+  transform: rotate(-45deg);
+}
+
+/* ---------- pricing ---------- */
+.price { width: 100%; border-collapse: collapse; border: 1px solid #9aa2ae; margin: 0 0 6px 0; }
+.price th, .price td { border-right: 1px solid #c8cdd6; vertical-align: top; }
+.price th:last-child, .price td:last-child { border-right: none; }
+
+.price th.tier {
+  background-image: linear-gradient(180deg, #f6f7f9 0%, #dcdfe6 48%, #ccd1da 52%, #dfe2e8 100%);
+  border-bottom: 1px solid #9aa2ae;
+  padding: 9px 11px 10px 11px;
+  text-align: left;
+  width: 33.33%;
+}
+.price th.tier.best {
+  background-image: linear-gradient(180deg, #fff6e2 0%, #fbeac4 48%, #f6dfae 52%, #fdf2dd 100%);
+  border-bottom: 1px solid #c9a44e;
+}
+.price th.tier.free {
+  background-image: linear-gradient(180deg, #eef7f0 0%, #d9ecdd 48%, #c9e2ce 52%, #e7f4e9 100%);
+  border-bottom: 1px solid #7ba985;
+}
+.tiername { font-size: 11px; color: #1d2531; margin: 0 0 5px 0; }
+.tiertag {
+  display: inline-block;
+  font-size: 8px;
+  font-weight: normal;
+  letter-spacing: 0.6px;
+  color: #ffffff;
+  background: #b5121b;
+  padding: 1px 5px 2px 5px;
+  margin-left: 5px;
+  vertical-align: 1px;
+}
+.tiertag.grn { background: #2f7a41; }
+.tierprice {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 26px;
+  font-weight: normal;
+  color: #1d2531;
+  line-height: 1;
+}
+.tierprice small {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  color: #6b7583;
+  font-weight: normal;
+}
+.tiersub { font-size: 9px; font-weight: normal; color: #6b7583; margin: 5px 0 0 0; line-height: 1.5; }
+
+.price td.cell { padding: 11px 11px 13px 11px; background: #ffffff; }
+.price td.cell ul { margin: 0; padding: 0; list-style: none; }
+.price td.cell li {
+  font-size: 10px;
+  line-height: 1.55;
+  color: #5c6675;
+  padding: 3px 0 3px 13px;
+  position: relative;
+}
+.price td.cell li:before {
+  content: "";
+  position: absolute;
+  left: 1px; top: 9px;
+  width: 4px; height: 4px;
+  background: #98a0ac;
+}
+.price td.cell li.no { color: #9aa2ae; }
+.price td.cell li.no:before { background: #d3d7de; }
+.price td.buy { padding: 0 11px 13px 11px; background: #ffffff; }
+
+/* ---------- account ---------- */
+.acct {
+  border: 1px solid #b4bac5;
+  background: #f4f5f8;
+  background-image: linear-gradient(180deg, #ffffff 0%, #eef0f4 100%);
+  margin: 0 0 4px 0;
+}
+.acct table { width: 100%; border-collapse: collapse; }
+.acct .pane { padding: 14px 16px 16px 16px; vertical-align: top; width: 50%; }
+.acct .pane.right { border-left: 1px solid #dfe2e8; }
+.acct h4 {
+  margin: 0 0 4px 0;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: normal;
+  font-size: 16px;
+  color: #1d2531;
+}
+.acct .hint { font-size: 10px; line-height: 1.6; color: #6b7583; margin: 0 0 10px 0; }
+
+.field { margin: 0 0 8px 0; }
+.field label {
+  display: block;
+  font-size: 10px;
+  color: #4a5666;
+  margin: 0 0 3px 0;
+}
+.field input {
+  width: 100%;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11px;
+  padding: 4px 6px;
+  color: #1d2531;
+  background: #ffffff;
+  border: 1px solid #8c93a0;
+  border-top-color: #5f6773;
+  border-left-color: #5f6773;
+}
+.field input:focus { outline: 2px solid #ff9c3f; outline-offset: -1px; }
+.field input[readonly] { background: #f0f1f4; color: #5c6675; }
+
+.checkrow { font-size: 10px; color: #5c6675; margin: 2px 0 10px 0; line-height: 1.55; }
+.checkrow input { vertical-align: -1px; margin: 0 5px 0 0; }
+.formnote { font-size: 9px; color: #7b8391; line-height: 1.6; margin: 9px 0 0 0; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1180px) {
+  body { padding-bottom: 0; }
+  .shell { border-left: none; border-right: none; }
+}
+
+@media (max-width: 860px) {
+  .hero table, .hero tr, .herocopy, .herobox,
+  .cols, .cols tr, .side, .main {
+    display: block;
+    width: auto;
+  }
+  .herocopy { width: auto; padding: 20px 18px 18px 18px; }
+  .herobox {
+    padding: 20px 18px 22px 18px;
+    border-left: none;
+    border-top: 1px solid #d4d8e0;
+  }
+  .side {
+    width: auto;
+    border-right: none;
+    border-bottom: 1px solid #d8dbe2;
+  }
+  .main { padding: 0 18px 26px 18px; }
+  h1 { font-size: 24px; }
+  .navbar table { width: 100%; }
+  .navbar td { padding: 5px 10px; }
+}
+
+@media (max-width: 700px) {
+  .masthead table, .masthead tr, .brandcell, .utility {
+    display: block;
+    width: auto;
+    text-align: left;
+  }
+  .utility { padding: 0 0 11px 14px; }
+  .navbar td { display: inline-block; border-right: none; }
+  .navbar td.first { border-left: none; }
+
+  .feat, .feat tr, .feat td { display: block; width: auto; }
+  .feat td { padding: 0 0 15px 0; }
+
+  .price, .price tr, .price th, .price td { display: block; width: auto; }
+  .price th.tier { border-right: none; }
+  .price td.cell { padding-bottom: 4px; }
+  .price td.buy { padding-bottom: 18px; border-bottom: 1px solid #c8cdd6; }
+
+  .acct table, .acct tr, .acct .pane { display: block; width: auto; }
+  .acct .pane.right { border-left: none; border-top: 1px solid #dfe2e8; }
+
+  .dlstrip table, .dlstrip tr, .dlstrip .dlleft, .dlstrip .dlright {
+    display: block;
+    width: auto;
+    text-align: left;
+  }
+  .dlstrip .dlright { border-left: none; padding-top: 0; }
+
+  .fmt { display: block; overflow-x: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* ---------- sub-page additions ---------- */
+.page { padding: 24px 26px 30px 26px; }
+.page h2 {
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 24px;
+  font-weight: normal;
+  color: #1d2531;
+  margin: 0 0 6px 0;
+}
+.page .sub { font-size: 10px; color: #7b8391; margin: 0 0 20px 0; }
+.page h3 {
+  font-size: 11px;
+  font-weight: bold;
+  color: #1d2531;
+  margin: 20px 0 6px 0;
+}
+.page p { font-size: 11px; line-height: 1.72; color: #454e5c; margin: 0 0 10px 0; }
+.page ul { margin: 0 0 12px 0; padding: 0 0 0 17px; }
+.page li { font-size: 11px; line-height: 1.7; color: #454e5c; margin: 0 0 3px 0; }
+.page code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  background: #f2f3f6;
+  border: 1px solid #dbdfe6;
+  padding: 1px 4px;
+  color: #3d4653;
+}
+
+.plain { width: 100%; border-collapse: collapse; border: 1px solid #b4bac5; margin: 0 0 14px 0; }
+.plain th {
+  background-image: linear-gradient(180deg, #f6f7f9 0%, #d9dde4 100%);
+  border-bottom: 1px solid #b4bac5;
+  border-right: 1px solid #cbd0d8;
+  padding: 5px 9px; font-size: 10px; text-align: left; color: #2b3340;
+}
+.plain td {
+  border-bottom: 1px solid #e2e5ea;
+  border-right: 1px solid #eceef1;
+  padding: 6px 9px; font-size: 10px; color: #5c6675; vertical-align: top;
+}
+.plain tr:last-child td { border-bottom: none; }
+.plain td b, .plain td code { color: #2b3340; }
+
+.rel-entry { border-top: 1px solid #e2e5ea; padding: 16px 0 4px 0; }
+.rel-entry:first-of-type { border-top: none; padding-top: 6px; }
+.rel-ver {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 19px; color: #1d2531; margin: 0 0 2px 0;
+}
+.rel-date { font-size: 9px; color: #8a92a0; margin: 0 0 10px 0; letter-spacing: 0.4px; }
+.rel-tag {
+  display: inline-block; font-size: 8px; letter-spacing: .6px;
+  color: #ffffff; background: #2f7a41; padding: 1px 5px 2px 5px;
+  margin-left: 6px; vertical-align: 3px;
+}
+.rel-tag.fix { background: #b5121b; }
+
+.err { text-align: center; padding: 60px 26px 70px 26px; }
+.err .code {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 62px; color: #c9cdd6; line-height: 1; margin: 0 0 6px 0;
+}
+.err h2 { font-size: 22px; margin-bottom: 10px; }
+.err p { max-width: 44ch; margin-left: auto; margin-right: auto; }
+
+/* ---------- mobile ----------
+   Appended last so these override the base rules above. The desktop design
+   uses 10-11px type, which is too small to read comfortably on a phone, so
+   text scales up rather than the layout merely narrowing. */
+
+html { -webkit-text-size-adjust: 100%; }
+
+@media (max-width: 860px) {
+  body, html { overflow-x: hidden; }
+  .shell { overflow-x: hidden; }
+
+  /* sub-pages: privacy, release notes, 404 */
+  .page { padding: 20px 18px 26px 18px; }
+  .page h2 { font-size: 22px; }
+  .page p, .page li { font-size: 13px; line-height: 1.75; }
+  .page h3 { font-size: 13px; margin-top: 22px; }
+  .page .sub { font-size: 11px; }
+  .page code { font-size: 12px; }
+
+  .err { padding: 44px 18px 50px 18px; }
+  .err .code { font-size: 52px; }
+}
+
+@media (max-width: 700px) {
+  /* readable body copy */
+  p.body { font-size: 13px; line-height: 1.75; }
+  .lede { font-size: 13px; line-height: 1.75; }
+  .built p { font-size: 12.5px; line-height: 1.78; }
+  .checks li { font-size: 12.5px; line-height: 1.7; }
+  .feat h3 { font-size: 13px; }
+  .feat p { font-size: 12.5px; line-height: 1.7; }
+  .secbar { font-size: 13px; padding: 7px 12px; }
+  .notice p { font-size: 12.5px; line-height: 1.78; }
+  .notice h4 { font-size: 13px; }
+  .notice code { font-size: 12px; }
+  .kicker { font-size: 12px; }
+
+  /* header */
+  h1 { font-size: 23px; line-height: 1.2; }
+  .wordmark { font-size: 23px; }
+  .utility { font-size: 12px; }
+  .utility a { padding: 4px 0; display: inline-block; }
+
+  /* nav: bigger tap targets, wraps to as many rows as needed */
+  .navbar td { padding: 0; }
+  .navbar td a {
+    display: block;
+    padding: 11px 13px;
+    font-size: 12px;
+  }
+
+  /* sidebar blocks */
+  .sidehead { font-size: 12px; padding: 7px 14px; }
+  .specbox { padding: 11px 14px 14px 14px; }
+  .spectbl th, .spectbl td { font-size: 12px; padding: 4px 0; }
+  .spectbl th { width: 82px; }
+  .pullquote { font-size: 12.5px; line-height: 1.7; margin: 4px 14px 0 14px; }
+  .pullquote cite { font-size: 11px; }
+
+  /* buttons: 44px minimum tap target */
+  .btn {
+    display: block;
+    text-align: center;
+    padding: 12px 18px;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  .btn.primary { font-size: 14px; padding: 13px 20px; }
+  .btn.small { font-size: 12px; padding: 11px 16px; }
+  .btn + .btn { margin-left: 0; }
+  .dlnote { font-size: 12px; line-height: 1.7; }
+  .boxcap { font-size: 12px; }
+
+  /* pricing */
+  .price th.tier { padding: 12px 14px; }
+  .tiername { font-size: 13px; }
+  .tierprice { font-size: 30px; }
+  .tierprice small { font-size: 12px; }
+  .tiersub { font-size: 11px; }
+  .price td.cell { padding: 12px 14px 6px 14px; }
+  .price td.cell li { font-size: 12.5px; line-height: 1.65; padding: 5px 0 5px 14px; }
+  .price td.cell li:before { top: 12px; }
+  .price td.buy { padding: 0 14px 16px 14px; }
+
+  /* forms: 16px prevents iOS Safari zooming on focus */
+  .acct .pane { padding: 16px 14px 18px 14px; }
+  .acct h4 { font-size: 17px; }
+  .acct .hint { font-size: 12.5px; line-height: 1.7; }
+  .field label { font-size: 12px; margin-bottom: 5px; }
+  .field input {
+    font-size: 16px;
+    padding: 10px 9px;
+  }
+  .field { margin-bottom: 12px; }
+  .checkrow { font-size: 12.5px; line-height: 1.6; }
+  .checkrow input { width: 17px; height: 17px; vertical-align: -3px; }
+  .formnote { font-size: 11.5px; line-height: 1.65; }
+
+  /* download strip */
+  .dlstrip .dlleft { padding: 16px 14px 6px 14px; }
+  .dlstrip .dlright { padding: 0 14px 16px 14px; }
+  .dlstrip h4 { font-size: 18px; }
+  .dlstrip p { font-size: 12.5px; line-height: 1.7; }
+
+  /* wide data tables scroll rather than squash */
+  .fmt, .plain {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .fmt th, .fmt td, .plain th, .plain td {
+    font-size: 12.5px;
+    padding: 8px 10px;
+    white-space: normal;
+  }
+  .fmt caption { font-size: 11px; }
+
+  /* footer */
+  .foot { padding: 15px 16px 20px 16px; font-size: 12px; }
+  .foot .links { line-height: 2.2; }
+  .foot .links a { padding: 3px 0; }
+  .foot .fine { font-size: 11px; line-height: 1.7; }
+
+  /* release notes */
+  .rel-ver { font-size: 20px; }
+  .rel-date { font-size: 10.5px; }
+}
+
+@media (max-width: 420px) {
+  .herocopy, .herobox { padding-left: 14px; padding-right: 14px; }
+  .main { padding-left: 14px; padding-right: 14px; }
+  h1 { font-size: 21px; }
+  .wordmark { font-size: 21px; }
+  .prodbox { transform: scale(.92); }
+  .tierprice { font-size: 27px; }
+  .page { padding-left: 14px; padding-right: 14px; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="masthead">
+    <table>
+      <tr>
+        <td class="brandcell">
+          <a href="index.html" style="text-decoration:none;"><span class="logomark"></span><span class="wordmark">Py<em>Draft</em><span>2D CAD SYSTEM</span></span></a>
+        </td>
+        <td class="utility">
+          <a href="#">Support</a> &nbsp;|&nbsp; <a href="#">Contact</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="navbar">
+    <table>
+      <tr>
+        <td class="first"><a href="index.html">Product</a></td>
+        <td><a href="index.html#formats">File Formats</a></td>
+        <td><a href="index.html#howbuilt">How It's Built</a></td>
+        <td><a href="index.html#pricing">Pricing</a></td>
+        <td><a href="index.html#download">Download</a></td>
+        <td><a href="releases.html">Release Notes</a></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="page">
+    <h2>Privacy</h2>
+    <p class="sub">Last updated 31 August 2026 &nbsp;&middot;&nbsp; Applies to PyDraft 0.9-alpha</p>
+
+    <p>PyDraft runs on your computer. It has no account system, no analytics, and no background telemetry. There are exactly two times the program touches the network, both listed below, and one of them only happens when you press a button.</p>
+
+    <h3>1. The update check</h3>
+    <p>When PyDraft starts, it requests a small text file from the PyDraft website to see whether a newer version exists. The request contains nothing about you or your drawing. As with any web request, the server can see your IP address and the version string in the user agent (for example <code>PyDraft/0.9-alpha</code>). Nothing is logged against an identity because there is no identity to log it against.</p>
+    <p>If you are offline, the check fails silently and the program carries on.</p>
+
+    <h3>2. Bug reports, only when you send one</h3>
+    <p>Nothing is transmitted unless you open <code>Help &rarr; Send Bug Report</code>, type a description, and press Send. There is no automatic crash reporting. Here is exactly what a report can contain:</p>
+
+    <table class="plain">
+      <tr>
+        <th style="width:150px;">Data</th>
+        <th style="width:82px;">Included</th>
+        <th>Detail</th>
+      </tr>
+      <tr>
+        <td><b>Your description</b></td>
+        <td>Always</td>
+        <td>The text you typed, and the time you sent it.</td>
+      </tr>
+      <tr>
+        <td><b>Tester ID</b></td>
+        <td>Always</td>
+        <td>A random code generated on your machine. It is not derived from your hardware, name, or email, and it identifies a copy of the program, not a person.</td>
+      </tr>
+      <tr>
+        <td><b>System information</b></td>
+        <td>Checkbox, on by default</td>
+        <td>Operating system and version, Python version, CPU model string, total and available RAM, screen resolution, UI scale, and app version. Uncheck the box and none of it is sent.</td>
+      </tr>
+      <tr>
+        <td><b>Your drawing</b></td>
+        <td>Checkbox, off by default</td>
+        <td>The geometry in your current model space. Only sent if you deliberately tick this. Leave it off unless the bug is about a specific file.</td>
+      </tr>
+    </table>
+
+    <p>If you would rather see the report before it leaves your machine, press <b>Copy Report</b> instead of Send. That puts the entire contents on your clipboard so you can read it, edit it, and send it however you like.</p>
+
+    <h3>What is never collected</h3>
+    <ul>
+      <li>Your name, email, or address, unless you type it into a form yourself.</li>
+      <li>Your files, folder names, or file paths.</li>
+      <li>Keystrokes, usage tracking, feature analytics, or session recording.</li>
+      <li>Anything at all while you are simply drawing.</li>
+    </ul>
+
+    <h3>If you register your tester ID</h3>
+    <p>Registering is optional and happens on the website, not in the program. It stores three things: your email address, your tester ID, and the machine type you optionally entered. Its only purpose is to restore your free licence if you lose the ID. Your email is not sold, shared, or used for anything except version announcements, and only if you ticked that box.</p>
+
+    <h3>Turning the network off entirely</h3>
+    <p>PyDraft is fully functional with no internet connection. If you block it in your firewall, the update check fails quietly and every drawing, editing, and export feature continues to work normally. Nothing in the program requires a connection to run.</p>
+
+    <h3>Changes</h3>
+    <p>If a future version starts collecting something new, it will be listed on this page and called out in the release notes before it ships. Quietly expanding data collection is the kind of thing that makes people distrust software, and the point of this program is to be the one that does not do that.</p>
+
+    <p style="margin-top:20px;"><a class="btn small" href="index.html">Back to the product page</a></p>
+  </div>
+
+  <div class="footrule"></div>
+  <div class="foot">
+    <div class="links">
+      <a href="index.html">Home</a> | <a href="index.html#formats">File Formats</a> | <a href="index.html#howbuilt">How It's Built</a> | <a href="index.html#pricing">Pricing</a> | <a href="index.html#download">Download</a> | <a href="index.html#account">Account</a> | <a href="releases.html">Release Notes</a> | <a href="privacy.html">Privacy</a> | <a href="#">Contact</a>
+    </div>
+    <div class="fine">
+      Copyright &copy; 2026 PyDraft. All rights reserved.<br>
+      DXF is a format originated by Autodesk, Inc. Product names mentioned are trademarks of their respective owners.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
