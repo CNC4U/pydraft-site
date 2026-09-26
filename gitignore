@@ -1,0 +1,49 @@
+# Secrets — anything committed here is permanent and public.
+# Add before your first commit, not after.
+.env
+.env.*
+*.key
+*.pem
+secrets.json
+config.local.*
+webhook.txt
+credentials*
+
+# Local PyDraft config (contains your tester ID)
+.pydraft.json
+pydraft.json
+
+# Build output
+build/
+dist/
+*.spec
+*.exe
+*.msi
+*.zip
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Signing material — never commit these
+*.pfx
+*.p12
+*.cer
+*.crt
+
+# Tester and customer data — keep out of the repo entirely
+testers*.csv
+testers*.json
+licenses*.csv
+licenses*.json
+emails*.csv
+bug-reports/
+
+# Editors and OS junk
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
