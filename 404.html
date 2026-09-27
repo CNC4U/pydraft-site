@@ -886,6 +886,28 @@ html { -webkit-text-size-adjust: 100%; }
   .tierprice { font-size: 27px; }
   .page { padding-left: 14px; padding-right: 14px; }
 }
+
+/* screenshots */
+.shots { margin: 0 0 6px 0; }
+.shot {
+  display: block;
+  border: 1px solid #b4bac5;
+  padding: 3px;
+  background: #ffffff;
+  box-shadow: 1px 1px 0 #d4d8e0;
+}
+.shot:hover { border-color: #7d8798; }
+.shot img { display: block; width: 100%; height: auto; border: 1px solid #2b3340; }
+.shotcap { font-size: 10px; line-height: 1.6; color: #5c6675; margin: 6px 0 14px 0; }
+.shotrow { width: 100%; border-collapse: collapse; }
+.shotrow td { width: 50%; vertical-align: top; padding: 0 7px 0 0; }
+.shotrow td + td { padding: 0 0 0 7px; }
+.shotnote { font-size: 9px; color: #7b8391; margin: 0; }
+
+@media (max-width: 700px) {
+  .shotrow, .shotrow tr, .shotrow td { display: block; width: auto; }
+  .shotrow td, .shotrow td + td { padding: 0; }
+}
 </style>
 </head>
 <body>
@@ -908,6 +930,7 @@ html { -webkit-text-size-adjust: 100%; }
     <table>
       <tr>
         <td class="first"><a href="https://pydraft.com/index.html">Product</a></td>
+        <td><a href="https://pydraft.com/index.html#screens">Screenshots</a></td>
         <td><a href="https://pydraft.com/index.html#formats">File Formats</a></td>
         <td><a href="https://pydraft.com/index.html#howbuilt">How It's Built</a></td>
         <td><a href="https://pydraft.com/index.html#pricing">Pricing</a></td>

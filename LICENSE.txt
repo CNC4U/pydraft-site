@@ -49,10 +49,10 @@ the code, but the rights below are the only rights you receive.
 
 4. CNC AND MACHINE OUTPUT
 
-   PyDraft can produce G-code, DXF and other files that drive real machines.
-   You are responsible for checking every file, toolpath, dimension, feed,
-   speed, depth and tool offset before you cut, burn, print or machine
-   anything. Always run new output as a dry run or air cut first.
+   PyDraft produces DXF and other files that are used to make real parts.
+   You are responsible for checking every file, dimension and toolpath made
+   from it before you cut, burn, print or machine anything. Always run new
+   output as a dry run or air cut first.
 
 
 5. NO WARRANTY

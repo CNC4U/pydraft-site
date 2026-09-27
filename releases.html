@@ -887,6 +887,28 @@ html { -webkit-text-size-adjust: 100%; }
   .tierprice { font-size: 27px; }
   .page { padding-left: 14px; padding-right: 14px; }
 }
+
+/* screenshots */
+.shots { margin: 0 0 6px 0; }
+.shot {
+  display: block;
+  border: 1px solid #b4bac5;
+  padding: 3px;
+  background: #ffffff;
+  box-shadow: 1px 1px 0 #d4d8e0;
+}
+.shot:hover { border-color: #7d8798; }
+.shot img { display: block; width: 100%; height: auto; border: 1px solid #2b3340; }
+.shotcap { font-size: 10px; line-height: 1.6; color: #5c6675; margin: 6px 0 14px 0; }
+.shotrow { width: 100%; border-collapse: collapse; }
+.shotrow td { width: 50%; vertical-align: top; padding: 0 7px 0 0; }
+.shotrow td + td { padding: 0 0 0 7px; }
+.shotnote { font-size: 9px; color: #7b8391; margin: 0; }
+
+@media (max-width: 700px) {
+  .shotrow, .shotrow tr, .shotrow td { display: block; width: auto; }
+  .shotrow td, .shotrow td + td { padding: 0; }
+}
 </style>
 </head>
 <body>
@@ -909,6 +931,7 @@ html { -webkit-text-size-adjust: 100%; }
     <table>
       <tr>
         <td class="first"><a href="index.html">Product</a></td>
+        <td><a href="index.html#screens">Screenshots</a></td>
         <td><a href="index.html#formats">File Formats</a></td>
         <td><a href="index.html#howbuilt">How It's Built</a></td>
         <td><a href="index.html#pricing">Pricing</a></td>
@@ -923,7 +946,24 @@ html { -webkit-text-size-adjust: 100%; }
     <p class="sub">Every change that ships, in plain language. Newest first.</p>
 
     <div class="rel-entry">
-      <p class="rel-ver">0.9-alpha<span class="rel-tag">CURRENT</span></p>
+      <p class="rel-ver">0.9.1-alpha<span class="rel-tag">CURRENT</span></p>
+      <p class="rel-date">UPDATE</p>
+
+      <h3>Changed</h3>
+      <ul>
+        <li>G-code export has been removed. PyDraft draws the part; export DXF and create toolpaths in the CAM program you already use.</li>
+      </ul>
+
+      <h3>Fixed</h3>
+      <ul>
+        <li>The properties panel showed lengths and radii in millimeters even in inch drawings. It now uses the drawing's units, and shows a circle's diameter as well as its radius.</li>
+        <li>The cursor coordinates in the status bar now use the drawing's units instead of raw millimeters.</li>
+        <li>Architectural units showed 4'-0 5/8" as 4'-5/8", and values just under a foot could show as 0'-12". Both now display correctly.</li>
+      </ul>
+    </div>
+
+    <div class="rel-entry">
+      <p class="rel-ver">0.9-alpha</p>
       <p class="rel-date">FIRST PUBLIC RELEASE</p>
       <p>The first build handed to anyone other than me. Everything below already works; the version number is low because it has not been tested by enough people yet, not because it is missing features.</p>
 
