@@ -1,0 +1,80 @@
+PyDraft 2D CAD - License
+========================
+
+Copyright (c) 2026 the developer of PyDraft (pydraft.com). All rights reserved.
+
+PyDraft is source-available software. It is NOT open source. You can read
+the code, but the rights below are the only rights you receive.
+
+
+1. WHAT YOU MAY DO
+
+   a. Download, install and run PyDraft on computers you own or control.
+
+   b. Read the source code, and change your own copy for your own use
+      (for example, to learn how it works or to fix something for yourself).
+
+   c. Keep and use every drawing and file you make with PyDraft. Your
+      drawings and exported files belong to you, not to the author.
+   
+   d. Have a nice day. :)
+
+
+2. WHAT YOU MAY NOT DO
+
+   a. Share, publish, sell, rent or give away PyDraft, its source code, or
+      a changed version of either, in whole or in part, without written
+      permission from the author. *wink* *wink*
+
+   b. Remove, disable or get around any license key, trial or other
+      feature that controls access to paid versions of PyDraft.(yeah it's like impossible or smthg dont try)
+
+   c. Use the PyDraft name or logo for a product or service that is not
+      PyDraft. (actually please don't once or if I add human made art)
+
+   d. Have a evil day. >:) (you do have do actually follow this one)
+
+   Linking people to https://pydraft.com so they can download it
+   themselves is always fine.
+
+
+3. ALPHA TESTERS AND PAID VERSIONS
+
+   PyDraft is free to use during the alpha test. Later versions may require
+   a purchased license key after a free trial, as described on
+   https://pydraft.com. Alpha testers are promised a free permanent license
+   for the paid version, tied to their tester ID; that promise is part of
+   this license.
+
+
+4. CNC AND MACHINE OUTPUT
+
+   PyDraft can produce G-code, DXF and other files that drive real machines.
+   You are responsible for checking every file, toolpath, dimension, feed,
+   speed, depth and tool offset before you cut, burn, print or machine
+   anything. Always run new output as a dry run or air cut first.
+
+
+5. NO WARRANTY
+
+   PyDraft is provided "as is", without any warranty of any kind, express
+   or implied, including fitness for a particular purpose. It is test
+   software and may contain errors.
+
+
+6. LIMIT OF LIABILITY
+
+   To the fullest extent the law allows, the author is not liable for any
+   loss or damage arising from the use of PyDraft or its output, including
+   damage to machines, tools, workpieces or materials, lost work, lost
+   data, or personal injury.
+
+
+7. ENDING THIS LICENSE
+
+   This license ends automatically if you break its terms. When it ends,
+   you must stop using PyDraft and delete your copies. Parts 4, 5 and 6
+   continue to apply after it ends.
+
+
+Questions or permission requests: https://github.com/CNC4U/pydraft-site/issues
