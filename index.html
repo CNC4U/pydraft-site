@@ -495,6 +495,26 @@ p.body { font-size: 11px; line-height: 1.72; color: #454e5c; margin: 0 0 11px 0;
 .built p { font-size: 10px; line-height: 1.75; color: #4f5967; margin: 0 0 9px 0; }
 .built p:last-child { margin-bottom: 0; }
 .built p b { color: #1d2531; }
+.built.letter { padding: 18px 22px 16px 22px; border-left: 3px solid #ff9c3f; }
+.built.letter p { font-size: 11px; line-height: 1.8; margin-bottom: 11px; }
+.built.letter .hello {
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 19px; line-height: 1.2; color: #1d2531; margin-bottom: 12px;
+}
+.built.letter .wont {
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 26px; line-height: 1.1; color: #1d2531; margin: 4px 0 14px 0;
+}
+.built.letter .signoff {
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 15px; font-style: italic; color: #1d2531; margin: 14px 0 0 0;
+}
+@media (max-width: 700px) {
+  .built.letter p { font-size: 13px; }
+  .built.letter .hello { font-size: 21px; }
+  .built.letter .signoff { font-size: 17px; }
+  .built.letter .wont { font-size: 30px; }
+}
 
 .checks { margin: 10px 0 9px 0; padding: 0; list-style: none; }
 .checks li {
@@ -1068,21 +1088,15 @@ html { -webkit-text-size-adjust: 100%; }
 
         <a name="howbuilt"></a>
         <div class="secbar">How It's Built</div>
-        <div class="built">
-          <p><b>PyDraft is written with AI assistance, by one person.</b> I am a CNC hobbyist, not a career software engineer. I designed this program, I decide what goes in it, I test it on my own machine, and I am the one who answers when it breaks. A large language model writes a lot of the code under my direction. I would rather tell you that plainly than have you find out later.</p>
-          <p>The reasonable question is whether that makes it junk. Here is what actually stands behind the build, so you can judge it yourself:</p>
-          <ul class="checks">
-            <li>Every release is run against an automated test suite &mdash; several hundred checks covering geometry math, trim and offset behavior, file round-trips, and unit conversion.</li>
-            <li>Geometry is verified numerically, not by eye. If a fillet lands in the wrong place or a DXF loses an arc, a test fails before you ever see it.</li>
-            <li>The entire program is a single readable Python file. Nothing is hidden, obfuscated, or minified. Open it and check my work.</li>
-            <li>It is used on a real plasma table cutting real parts, which is a harsher test than any of the above.</li>
-          </ul>
-          <p>Every CAD program on the market now uses AI somewhere in its development. The difference here is that you are being told. If that is a dealbreaker for you, I respect it &mdash; download it anyway, run it against a part you already know the dimensions of, and let the output decide.</p>
+        <div class="built letter">
+          <p>With the rise of the internet, many people created programs, hacks, and games out of a passion for creation. Sadly, after the dot-com era, the companies that now hold power over so many tools make anyone, from a hobbyist to a massive corporation, pay insane prices. These companies are so blatant in their anti-consumer practices that they rip away your right to ownership and force you into an exorbitant subscription.</p>
+          <p class="wont">I won&rsquo;t.</p>
+          <p>I have no interest in being the market leader in drafting programs. I want to make a statement: people and companies want to actually own the things they buy, and they want those things to just work. Using an LLM makes possible what used to take a miracle. As a solo &ldquo;dev,&rdquo; I can now make a humble drafting program that works offline, will never sell your data, and will never lock you out of or take away the copy you own.</p>
         </div>
 
         <a name="pricing"></a>
         <div class="secbar">Pricing &amp; Licensing</div>
-        <p class="body">PyDraft is free during the alpha and will stay free for everyone testing it now. When version 1.0 ships, buying it once will be the normal way to own it. The monthly option exists for people who want a cheap way in, not because I want a recurring bill from you.</p>
+        <p class="body">PyDraft is free during the alpha and will stay free for everyone testing it now. When version 1.0 ships, you will be able to try every feature free for 30 days, then buy it once and own it. There is no subscription, now or planned.</p>
 
         <table class="price">
           <tr>
@@ -1092,14 +1106,14 @@ html { -webkit-text-size-adjust: 100%; }
               <p class="tiersub">Forever. Not a trial.</p>
             </th>
             <th class="tier">
-              <p class="tiername">Monthly</p>
-              <span class="tierprice">$10<small> / month</small></span>
-              <p class="tiersub">Cancel any time. Stops working when you stop paying.</p>
+              <p class="tiername">Free Trial</p>
+              <span class="tierprice">30<small> days</small></span>
+              <p class="tiersub">Every feature. No card, no sign-up.</p>
             </th>
             <th class="tier best">
               <p class="tiername">Own It<span class="tiertag">RECOMMENDED</span></p>
               <span class="tierprice">$149<small> once</small></span>
-              <p class="tiersub">Yours permanently. Pays for itself in 15 months.</p>
+              <p class="tiersub">One payment. Yours to keep.</p>
             </th>
           </tr>
           <tr>
@@ -1114,9 +1128,9 @@ html { -webkit-text-size-adjust: 100%; }
             <td class="cell">
               <ul>
                 <li>Every feature, no limits</li>
-                <li>Updates while subscribed</li>
-                <li class="no">Stops at the end of the billing period</li>
-                <li>Credit applies if you upgrade to permanent</li>
+                <li>30 days from the first launch</li>
+                <li>Nothing to sign up for to start</li>
+                <li>Buy any time, and your key unlocks the same install</li>
               </ul>
             </td>
             <td class="cell">
@@ -1130,8 +1144,8 @@ html { -webkit-text-size-adjust: 100%; }
           </tr>
           <tr>
             <td class="buy"><a class="btn small" href="#download">Download the alpha</a></td>
-            <td class="buy"><a class="btn small" href="#account">Notify me at launch</a></td>
-            <td class="buy"><a class="btn primary" href="#account">Notify me at launch</a></td>
+            <td class="buy"><span class="tiersub">Starts with version 1.0</span></td>
+            <td class="buy"><span class="tiersub">On sale from version 1.0</span></td>
           </tr>
         </table>
         <p class="body" style="font-size:10px;color:#6b7583;">Nothing is for sale yet &mdash; these prices are published now so nobody is surprised later. Alpha testers are never charged, whatever the final price turns out to be.</p>
@@ -1216,7 +1230,7 @@ html { -webkit-text-size-adjust: 100%; }
       <a href="index.html">Home</a> | <a href="#formats">File Formats</a> | <a href="#howbuilt">How It's Built</a> | <a href="#pricing">Pricing</a> | <a href="#download">Download</a> | <a href="#account">Account</a> | <a href="https://github.com/CNC4U/pydraft-site/issues/new">Report a Bug</a> | <a href="releases.html">Release Notes</a> | <a href="privacy.html">Privacy</a> | <a href="https://github.com/CNC4U/pydraft-site/issues/new">Contact</a>
     </div>
     <div class="fine">
-      Copyright &copy; 2026 PyDraft. All rights reserved.<br>
+      Copyright &copy; 2026 PyDraft. All rights reserved. PyDraft is source-available software; see the <a href="LICENSE.txt">license</a>.<br>
       DXF is a format originated by Autodesk, Inc. Product names mentioned are trademarks of their respective owners.
     </div>
   </div>
