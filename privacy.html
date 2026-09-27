@@ -909,6 +909,18 @@ html { -webkit-text-size-adjust: 100%; }
   .shotrow, .shotrow tr, .shotrow td { display: block; width: auto; }
   .shotrow td, .shotrow td + td { padding: 0; }
 }
+
+/* form feedback */
+button.btn { line-height: normal; margin: 0; }
+button.btn:disabled { opacity: 0.6; cursor: wait; }
+.trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.formstatus { font-size: 10px; line-height: 1.6; margin: 8px 0 0 0; min-height: 0; color: #5c6675; }
+.formstatus:empty { display: none; }
+.formstatus.good { color: #1d6b2f; font-weight: bold; }
+.formstatus.bad { color: #b5121b; font-weight: bold; }
+@media (max-width: 700px) {
+  .formstatus { font-size: 12.5px; }
+}
 </style>
 </head>
 <body>
@@ -943,7 +955,7 @@ html { -webkit-text-size-adjust: 100%; }
 
   <div class="page">
     <h2>Privacy</h2>
-    <p class="sub">Last updated 31 August 2026 &nbsp;&middot;&nbsp; Applies to PyDraft 0.9-alpha</p>
+    <p class="sub">Last updated 27 September 2026 &nbsp;&middot;&nbsp; Applies to PyDraft 0.9.1-alpha</p>
 
     <p>PyDraft runs on your computer. It has no account system, no analytics, and no background telemetry. There are exactly two times the program touches the network, both listed below, and one of them only happens when you press a button.</p>
 
@@ -993,7 +1005,10 @@ html { -webkit-text-size-adjust: 100%; }
     </ul>
 
     <h3>If you register your tester ID</h3>
-    <p>Registering is optional and happens on the website, not in the program. It stores three things: your email address, your tester ID, and the machine type you optionally entered. Its only purpose is to restore your free licence if you lose the ID. Your email is not sold, shared, or used for anything except version announcements, and only if you ticked that box.</p>
+    <p>Registering is optional and happens on the website, not in the program. The form sends four things: your email address, your tester ID, the machine type if you entered one, and whether you ticked the update-email box. Its only purpose is to restore your free license if you lose the ID. Your email is not sold, shared, or used for anything except version announcements, and only if you ticked that box.</p>
+    <p>How it travels: the form goes to a small forwarding service run on Cloudflare, which passes it to a private Discord channel that only the developer can see. That channel is the registration list. The forwarding service does not save what you typed. As with any web request, Cloudflare and Discord handle the request the way any web host does.</p>
+    <p>The <b>Recover a lost ID</b> form sends only your email address, so the developer can look up your ID and email it back to you.</p>
+    <p>To have your registration deleted, tick <b>Delete my registration instead</b> in the recover form on the <a href="index.html#account">product page</a> and send it. Every registration message for your email is removed, and you get an email when it is done.</p>
 
     <h3>Turning the network off entirely</h3>
     <p>PyDraft is fully functional with no internet connection. If you block it in your firewall, the update check fails quietly and every drawing, editing, and export feature continues to work normally. Nothing in the program requires a connection to run.</p>
@@ -1007,7 +1022,7 @@ html { -webkit-text-size-adjust: 100%; }
   <div class="footrule"></div>
   <div class="foot">
     <div class="links">
-      <a href="index.html">Home</a> | <a href="index.html#formats">File Formats</a> | <a href="index.html#howbuilt">How It's Built</a> | <a href="index.html#pricing">Pricing</a> | <a href="index.html#download">Download</a> | <a href="index.html#account">Account</a> | <a href="releases.html">Release Notes</a> | <a href="privacy.html">Privacy</a> | <a href="https://github.com/CNC4U/pydraft-site/issues/new">Contact</a>
+      <a href="index.html">Home</a> | <a href="index.html#formats">File Formats</a> | <a href="index.html#howbuilt">How It's Built</a> | <a href="index.html#pricing">Pricing</a> | <a href="index.html#download">Download</a> | <a href="index.html#account">Register</a> | <a href="releases.html">Release Notes</a> | <a href="privacy.html">Privacy</a> | <a href="https://github.com/CNC4U/pydraft-site/issues/new">Contact</a>
     </div>
     <div class="fine">
       Copyright &copy; 2026 PyDraft. All rights reserved. PyDraft is source-available software; see the <a href="LICENSE.txt">license</a>.<br>

@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PyDraft 2D CAD - Drafting for CNC with DXF and G-code export</title>
-<meta name="description" content="PyDraft is a lightweight 2D CAD program for CNC hobbyists. Draw parts and export DXF, SVG, PDF and G-code. One Windows download, no account, free during alpha.">
+<title>PyDraft 2D CAD - Buy-once drafting for CNC with DXF export</title>
+<meta name="description" content="PyDraft is a lightweight 2D CAD program for CNC hobbyists. Draw parts and export DXF, SVG and PDF. One Windows download, no account, free during alpha.">
 <link rel="canonical" href="https://pydraft.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PyDraft">
-<meta property="og:title" content="PyDraft 2D CAD - Drafting for CNC with DXF and G-code export">
-<meta property="og:description" content="PyDraft is a lightweight 2D CAD program for CNC hobbyists. Draw parts and export DXF, SVG, PDF and G-code. One Windows download, no account, free during alpha.">
+<meta property="og:title" content="PyDraft 2D CAD - Buy-once drafting for CNC with DXF export">
+<meta property="og:description" content="PyDraft is a lightweight 2D CAD program for CNC hobbyists. Draw parts and export DXF, SVG and PDF. One Windows download, no account, free during alpha.">
 <meta property="og:url" content="https://pydraft.com/">
 <meta name="twitter:card" content="summary">
 <style>
@@ -495,26 +495,6 @@ p.body { font-size: 11px; line-height: 1.72; color: #454e5c; margin: 0 0 11px 0;
 .built p { font-size: 10px; line-height: 1.75; color: #4f5967; margin: 0 0 9px 0; }
 .built p:last-child { margin-bottom: 0; }
 .built p b { color: #1d2531; }
-.built.letter { padding: 18px 22px 16px 22px; border-left: 3px solid #ff9c3f; }
-.built.letter p { font-size: 11px; line-height: 1.8; margin-bottom: 11px; }
-.built.letter .hello {
-  font-family: "Times New Roman", Times, Georgia, serif;
-  font-size: 19px; line-height: 1.2; color: #1d2531; margin-bottom: 12px;
-}
-.built.letter .wont {
-  font-family: "Times New Roman", Times, Georgia, serif;
-  font-size: 26px; line-height: 1.1; color: #1d2531; margin: 4px 0 14px 0;
-}
-.built.letter .signoff {
-  font-family: "Times New Roman", Times, Georgia, serif;
-  font-size: 15px; font-style: italic; color: #1d2531; margin: 14px 0 0 0;
-}
-@media (max-width: 700px) {
-  .built.letter p { font-size: 13px; }
-  .built.letter .hello { font-size: 21px; }
-  .built.letter .signoff { font-size: 17px; }
-  .built.letter .wont { font-size: 30px; }
-}
 
 .checks { margin: 10px 0 9px 0; padding: 0; list-style: none; }
 .checks li {
@@ -913,6 +893,40 @@ html { -webkit-text-size-adjust: 100%; }
   .tierprice { font-size: 27px; }
   .page { padding-left: 14px; padding-right: 14px; }
 }
+
+/* screenshots */
+.shots { margin: 0 0 6px 0; }
+.shot {
+  display: block;
+  border: 1px solid #b4bac5;
+  padding: 3px;
+  background: #ffffff;
+  box-shadow: 1px 1px 0 #d4d8e0;
+}
+.shot:hover { border-color: #7d8798; }
+.shot img { display: block; width: 100%; height: auto; border: 1px solid #2b3340; }
+.shotcap { font-size: 10px; line-height: 1.6; color: #5c6675; margin: 6px 0 14px 0; }
+.shotrow { width: 100%; border-collapse: collapse; }
+.shotrow td { width: 50%; vertical-align: top; padding: 0 7px 0 0; }
+.shotrow td + td { padding: 0 0 0 7px; }
+.shotnote { font-size: 9px; color: #7b8391; margin: 0; }
+
+@media (max-width: 700px) {
+  .shotrow, .shotrow tr, .shotrow td { display: block; width: auto; }
+  .shotrow td, .shotrow td + td { padding: 0; }
+}
+
+/* form feedback */
+button.btn { line-height: normal; margin: 0; }
+button.btn:disabled { opacity: 0.6; cursor: wait; }
+.trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.formstatus { font-size: 10px; line-height: 1.6; margin: 8px 0 0 0; min-height: 0; color: #5c6675; }
+.formstatus:empty { display: none; }
+.formstatus.good { color: #1d6b2f; font-weight: bold; }
+.formstatus.bad { color: #b5121b; font-weight: bold; }
+@media (max-width: 700px) {
+  .formstatus { font-size: 12.5px; }
+}
 </style>
 </head>
 <body>
@@ -938,6 +952,7 @@ html { -webkit-text-size-adjust: 100%; }
     <table>
       <tr>
         <td class="first on"><a href="index.html">Product</a></td>
+        <td><a href="#screens">Screenshots</a></td>
         <td><a href="#formats">File Formats</a></td>
         <td><a href="#howbuilt">How It's Built</a></td>
         <td><a href="#pricing">Pricing</a></td>
@@ -954,13 +969,13 @@ html { -webkit-text-size-adjust: 100%; }
         <td class="herocopy">
           <p class="kicker">Now in public alpha &mdash; free for testers</p>
           <h1>Real drafting. One file.<br>No subscription.</h1>
-          <p class="lede">PyDraft is a 2D drafting program for people who cut parts. It draws lines, arcs, and dimensions the way you expect, exports clean <b>DXF</b> and <b>G&#8209;code</b>, and runs from a single executable you can carry on a USB stick.</p>
+          <p class="lede">PyDraft is a 2D drafting program for people who cut parts. It draws lines, arcs, and dimensions the way you expect, exports clean <b>DXF</b> for your CAM software, and runs from a single executable you can carry on a USB stick.</p>
           <p class="lede">One person builds it, <b>with AI assistance and no attempt to hide that</b> &mdash; see <a href="#howbuilt">how it's built</a>. No installer, no cloud, no account needed to run it.</p>
           <p style="margin:0;">
             <a class="btn primary" href="https://github.com/CNC4U/pydraft-site/releases/latest/download/PyDraft.exe">Download for Windows</a>
             <a class="btn" href="#formats">See what it exports</a>
           </p>
-          <p class="dlnote">Version 0.9-alpha &nbsp;&middot;&nbsp; 11.4 MB &nbsp;&middot;&nbsp; Windows 10 &amp; 11<br>
+          <p class="dlnote">Version 0.9.1-alpha &nbsp;&middot;&nbsp; 11.4 MB &nbsp;&middot;&nbsp; Windows 10 &amp; 11<br>
           Windows may warn about an unknown publisher. Choose <b>More info &rarr; Run anyway</b>. That is normal for independent software that is not code-signed yet.</p>
         </td>
         <td class="herobox">
@@ -1010,6 +1025,26 @@ html { -webkit-text-size-adjust: 100%; }
         <p class="body">PyDraft is a drafting program in the classic sense. You type a command or click a tool, you pick points, you get geometry. Everything happens on your machine, in one window, with a command line at the bottom that behaves the way drafting command lines have behaved for thirty years.</p>
         <p class="body">It was written by one person who needed a CAD program for a hobby CNC machine and got tired of watching free tiers disappear. The whole program is a single Python file with no external dependencies, which is why the download is small and why it will still run in ten years.</p>
 
+        <a name="screens"></a>
+        <div class="secbar">Screenshots</div>
+        <div class="shots">
+          <a class="shot wide" href="shot-drawing.png"><img src="shot-drawing.png" width="1600" height="932" alt="PyDraft main window showing a dimensioned mounting plate drawn in inches, with layers panel, icon toolbar and command line"></a>
+          <p class="shotcap">A mounting plate drawn in decimal inches. Layers on the left, tools grouped by Draw, Modify and Measure across the top.</p>
+          <table class="shotrow">
+            <tr>
+              <td>
+                <a class="shot" href="shot-command.png"><img src="shot-command.png" width="880" height="512" loading="lazy" alt="The command line suggesting the Fillet command after typing fil"></a>
+                <p class="shotcap">Type part of a command and the command line suggests it, with a plain description of what it does.</p>
+              </td>
+              <td>
+                <a class="shot" href="shot-select.png"><img src="shot-select.png" width="880" height="512" loading="lazy" alt="A selected circle highlighted with its diameter and radius shown in the properties panel"></a>
+                <p class="shotcap">Selected objects light up, and the properties panel shows their size in your drawing's units.</p>
+              </td>
+            </tr>
+          </table>
+          <p class="shotnote">Actual screenshots of version 0.9.1-alpha; the bottom two are close-ups. Click any image to open it.</p>
+        </div>
+
         <div class="secbar">Tools Included</div>
         <table class="feat">
           <tr>
@@ -1047,7 +1082,7 @@ html { -webkit-text-size-adjust: 100%; }
         <a name="formats"></a>
         <div class="secbar">File Formats</div>
         <table class="fmt">
-          <caption>G-code export is a straightforward profile post. Check feeds, depths, and tool offsets before you cut.</caption>
+          <caption>PyDraft draws the part; your CAM software makes the toolpath. Export DXF and open it in the CAM program you already use.</caption>
           <tr>
             <th style="width:96px;">Format</th>
             <th style="width:58px;">Open</th>
@@ -1077,12 +1112,6 @@ html { -webkit-text-size-adjust: 100%; }
             <td>&mdash;</td>
             <td class="yes">Yes</td>
             <td>True vector PDF, fitted to Letter, Legal, A4, or A3.</td>
-          </tr>
-          <tr>
-            <td><b>.nc</b></td>
-            <td>&mdash;</td>
-            <td class="yes">Yes</td>
-            <td>Basic G-code. Arcs as G2/G3, units from the drawing.</td>
           </tr>
         </table>
 
@@ -1165,7 +1194,7 @@ html { -webkit-text-size-adjust: 100%; }
           <table>
             <tr>
               <td class="dlleft">
-                <h4>PyDraft 0.9-alpha for Windows</h4>
+                <h4>PyDraft 0.9.1-alpha for Windows</h4>
                 <p>Single executable, 11.4 MB. Nothing to install &mdash; download it, double-click it, draw something.<br>
                 Source code also available for macOS and Linux.</p>
               </td>
@@ -1179,46 +1208,127 @@ html { -webkit-text-size-adjust: 100%; }
         </div>
 
         <a name="account"></a>
-        <div class="secbar">Your Account</div>
-        <p class="body">An account does one job: it ties your tester ID to an email address so your free license can be restored if you reinstall Windows, swap machines, or lose the ID. You do not need an account to download or run PyDraft.</p>
+        <div class="secbar">Register Your Copy</div>
+        <p class="body">Registering does one job: it ties your tester ID to your email address, so your free license can be restored if you reinstall Windows, swap machines, or lose the ID. You do not need to register to download or run PyDraft, and there is no account or password.</p>
 
         <div class="acct">
           <table>
             <tr>
               <td class="pane">
-                <h4>Register your tester ID</h4>
-                <p class="hint">Find your ID in the program under <b>Help &rarr; About</b>, then paste it here. This is what guarantees your copy stays free after launch.</p>
-                <div class="field">
-                  <label for="em">Email address</label>
-                  <input id="em" type="email" placeholder="you@example.com" autocomplete="email">
-                </div>
-                <div class="field">
-                  <label for="tid">Tester ID</label>
-                  <input id="tid" type="text" placeholder="PYDRAFT-ALPHA-XXXX-XXXX" spellcheck="false">
-                </div>
-                <div class="field">
-                  <label for="mach">What are you cutting on? (optional)</label>
-                  <input id="mach" type="text" placeholder="Plasma table, router, laser, none yet">
-                </div>
-                <p class="checkrow"><input id="news" type="checkbox"> <label for="news" style="display:inline;">Email me when a new version is out. Roughly monthly, never sold or shared.</label></p>
-                <a class="btn primary" href="#">Register my copy</a>
-                <p class="formnote">Stored: your email, tester ID, and machine type. Nothing else. No password &mdash; you get a sign-in link by email when you need one.</p>
+                <form id="regform" novalidate>
+                  <h4>Register your tester ID</h4>
+                  <p class="hint">Find your ID in the program under <b>Help &rarr; About</b>, then paste it here. This is what guarantees your copy stays free after launch.</p>
+                  <div class="field">
+                    <label for="em">Email address</label>
+                    <input id="em" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+                  </div>
+                  <div class="field">
+                    <label for="tid">Tester ID</label>
+                    <input id="tid" name="tester_id" type="text" placeholder="PYDRAFT-ALPHA-XXXX-XXXX" spellcheck="false" autocapitalize="characters" required>
+                  </div>
+                  <div class="field">
+                    <label for="mach">What are you cutting on? (optional)</label>
+                    <input id="mach" name="machine" type="text" placeholder="Plasma table, router, laser, none yet" maxlength="100">
+                  </div>
+                  <div class="trap" aria-hidden="true">
+                    <label for="web1">Leave this empty</label>
+                    <input id="web1" name="website" type="text" tabindex="-1" autocomplete="off">
+                  </div>
+                  <p class="checkrow"><input id="news" name="news" type="checkbox"> <label for="news" style="display:inline;">Email me when a new version is out. Never sold or shared.</label></p>
+                  <button class="btn primary" type="submit">Register my copy</button>
+                  <p class="formstatus" role="status" aria-live="polite"></p>
+                  <p class="formnote">Sent privately to the developer: your email, tester ID, machine type, and whether you want update emails. Nothing else. See the <a href="privacy.html">privacy page</a>.</p>
+                </form>
               </td>
               <td class="pane right">
-                <h4>Recover a lost ID</h4>
-                <p class="hint">Reinstalled and lost your tester ID? Enter the email you registered with and it will be sent back to you.</p>
-                <div class="field">
-                  <label for="em2">Email address</label>
-                  <input id="em2" type="email" placeholder="you@example.com" autocomplete="email">
-                </div>
-                <a class="btn" href="#">Send my ID</a>
-
+                <form id="recform" novalidate>
+                  <h4>Recover a lost ID</h4>
+                  <p class="hint">Reinstalled and lost your tester ID? Enter the email you registered with and the developer will email your ID back, usually within a couple of days.</p>
+                  <div class="field">
+                    <label for="em2">Email address</label>
+                    <input id="em2" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+                  </div>
+                  <div class="trap" aria-hidden="true">
+                    <label for="web2">Leave this empty</label>
+                    <input id="web2" name="website" type="text" tabindex="-1" autocomplete="off">
+                  </div>
+                  <p class="checkrow"><input id="del" name="delete" type="checkbox"> <label for="del" style="display:inline;">Delete my registration instead</label></p>
+                  <button class="btn" type="submit">Send my ID</button>
+                  <p class="formstatus" role="status" aria-live="polite"></p>
+                </form>
                 <p class="hint" style="margin:18px 0 10px 0;padding-top:14px;border-top:1px solid #dfe2e8;"><b style="color:#1d2531;">Not a tester yet?</b><br>There is nothing to sign up for. Download the alpha, open it, and an ID is generated for you on first launch. Come back and register it when you are ready.</p>
                 <a class="btn small" href="#download">Download the alpha</a>
               </td>
             </tr>
           </table>
         </div>
+
+        <script>
+        (function () {
+          var ENDPOINT = "https://api.pydraft.com/";
+
+          function send(form, payload, okText, button) {
+            var status = form.querySelector(".formstatus");
+            status.className = "formstatus";
+            status.textContent = "Sending\u2026";
+            button.disabled = true;
+            fetch(ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
+            })
+              .then(function (res) { return res.json().catch(function () { return { ok: false }; }); })
+              .then(function (data) {
+                if (data && data.ok) {
+                  status.className = "formstatus good";
+                  status.textContent = okText;
+                  form.reset();
+                  Array.prototype.forEach.call(form.querySelectorAll("input[type=checkbox]"), function (box) {
+                    box.dispatchEvent(new Event("change"));
+                  });
+                } else {
+                  status.className = "formstatus bad";
+                  status.textContent = (data && data.error) || "Something went wrong. Please try again.";
+                }
+              })
+              .catch(function () {
+                status.className = "formstatus bad";
+                status.textContent = "Couldn\u2019t reach the server. Check your connection and try again.";
+              })
+              .then(function () { button.disabled = false; });
+          }
+
+          var reg = document.getElementById("regform");
+          reg.addEventListener("submit", function (e) {
+            e.preventDefault();
+            send(reg, {
+              type: "register",
+              email: reg.email.value,
+              tester_id: reg.tester_id.value,
+              machine: reg.machine.value,
+              news: reg.news.checked,
+              website: reg.website.value
+            }, "Registered. Your copy stays free after launch.", reg.querySelector("button"));
+          });
+
+          var rec = document.getElementById("recform");
+          rec.addEventListener("submit", function (e) {
+            e.preventDefault();
+            var del = rec["delete"].checked;
+            send(rec, {
+              type: del ? "delete" : "recover",
+              email: rec.email.value,
+              website: rec.website.value
+            }, del ? "Got it. Your registration will be deleted, and you\u2019ll get an email when it\u2019s done."
+                   : "Request sent. Watch your inbox (and spam folder) over the next couple of days.",
+            rec.querySelector("button"));
+          });
+
+          rec["delete"].addEventListener("change", function () {
+            rec.querySelector("button").textContent = rec["delete"].checked ? "Delete my registration" : "Send my ID";
+          });
+        })();
+        </script>
 
       </td>
     </tr>
@@ -1227,7 +1337,7 @@ html { -webkit-text-size-adjust: 100%; }
   <div class="footrule"></div>
   <div class="foot">
     <div class="links">
-      <a href="index.html">Home</a> | <a href="#formats">File Formats</a> | <a href="#howbuilt">How It's Built</a> | <a href="#pricing">Pricing</a> | <a href="#download">Download</a> | <a href="#account">Account</a> | <a href="https://github.com/CNC4U/pydraft-site/issues/new">Report a Bug</a> | <a href="releases.html">Release Notes</a> | <a href="privacy.html">Privacy</a> | <a href="https://github.com/CNC4U/pydraft-site/issues/new">Contact</a>
+      <a href="index.html">Home</a> | <a href="#formats">File Formats</a> | <a href="#howbuilt">How It's Built</a> | <a href="#pricing">Pricing</a> | <a href="#download">Download</a> | <a href="#account">Register</a> | <a href="https://github.com/CNC4U/pydraft-site/issues/new">Report a Bug</a> | <a href="releases.html">Release Notes</a> | <a href="privacy.html">Privacy</a> | <a href="https://github.com/CNC4U/pydraft-site/issues/new">Contact</a>
     </div>
     <div class="fine">
       Copyright &copy; 2026 PyDraft. All rights reserved. PyDraft is source-available software; see the <a href="LICENSE.txt">license</a>.<br>
