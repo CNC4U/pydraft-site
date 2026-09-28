@@ -955,9 +955,9 @@ button.btn:disabled { opacity: 0.6; cursor: wait; }
 
   <div class="page">
     <h2>Privacy</h2>
-    <p class="sub">Last updated 27 September 2026 &nbsp;&middot;&nbsp; Applies to PyDraft 0.9.1-alpha</p>
+    <p class="sub">Last updated 27 September 2026 &nbsp;&middot;&nbsp; Applies to PyDraft 0.9.2-alpha</p>
 
-    <p>PyDraft runs on your computer. It has no account system, no analytics, and no background telemetry. There are exactly two times the program touches the network, both listed below, and one of them only happens when you press a button.</p>
+    <p>PyDraft runs on your computer. It has no account system, no analytics, and no background telemetry. There are exactly three times the program touches the network, all listed below, and two of them only happen when you press a button.</p>
 
     <h3>1. The update check</h3>
     <p>When PyDraft starts, it requests a small text file from the PyDraft website to see whether a newer version exists. The request contains nothing about you or your drawing. As with any web request, the server can see your IP address and the version string in the user agent (for example <code>PyDraft/0.9-alpha</code>). Nothing is logged against an identity because there is no identity to log it against.</p>
@@ -995,6 +995,9 @@ button.btn:disabled { opacity: 0.6; cursor: wait; }
     </table>
 
     <p>If you would rather see the report before it leaves your machine, press <b>Copy Report</b> instead of Send. That puts the entire contents on your clipboard so you can read it, edit it, and send it however you like.</p>
+
+    <h3>3. Installing an update, only when you click Update Now</h3>
+    <p>If you choose <b>Update Now</b>, PyDraft downloads the new <code>PyDraft.exe</code> and its fingerprint file (<code>SHA256.txt</code>) from the project's GitHub releases page, checks that they match, and replaces the old version on your computer. As with any download, GitHub can see your IP address. Nothing about you or your drawings is sent. If you never click Update Now, this never happens.</p>
 
     <h3>What is never collected</h3>
     <ul>

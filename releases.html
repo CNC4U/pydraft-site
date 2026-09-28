@@ -958,7 +958,38 @@ button.btn:disabled { opacity: 0.6; cursor: wait; }
     <p class="sub">Every change that ships, in plain language. Newest first.</p>
 
     <div class="rel-entry">
-      <p class="rel-ver">0.9.1-alpha<span class="rel-tag">CURRENT</span></p>
+      <p class="rel-ver">0.9.2-alpha<span class="rel-tag">CURRENT</span></p>
+      <p class="rel-date">UPDATE &nbsp;&middot;&nbsp; INTERFACE AND UPDATES</p>
+
+      <h3>New</h3>
+      <ul>
+        <li>Resize the left panel, the toolbar and the command line by dragging the dividers between them. A guide line follows the mouse, the layout changes once when you let go, and every divider stops at its panel's smallest and largest size. <b>View &rarr; Reset Panel Sizes</b> puts everything back.</li>
+        <li>Resize each toolbar column (Draw, Modify, Measure) on its own. It snaps to whole icon columns, and dragging the toolbar's lower edge sets how many rows of icons there are.</li>
+        <li>Toolbar icons scale from 12 to 48 pixels: hold <b>Ctrl</b> and scroll over the toolbar, or use <b>Settings &rarr; Preferences</b>. By default they match your screen, so they're larger on high-resolution displays.</li>
+        <li>The left panel rearranges itself to fit, and the layer list sizes itself to your layers.</li>
+        <li><b>Update Now</b> installs updates for you: it downloads the new version, checks it, replaces the old one and reopens PyDraft.</li>
+        <li><b>Help &rarr; What's New</b> lists every change by version, and opens by itself after an update.</li>
+        <li>A thank-you message the first time PyDraft is opened, with your tester ID ready to copy and a button to register it.</li>
+      </ul>
+
+      <h3>Changed</h3>
+      <ul>
+        <li>A drawing can have up to 20 layers. Opening or importing a file with more moves the objects on the extra layers to layer 0 and tells you.</li>
+        <li>The layer <b>Color</b> button steps the selected layer through 10 colors, one per click, and each layer's name is shown in its color.</li>
+        <li>The "History lines shown" preference is gone; drag the top of the command line instead.</li>
+      </ul>
+
+      <h3>Fixed</h3>
+      <ul>
+        <li>Clicking the Paper tab works again.</li>
+        <li>Only four of the eight draw colors fit in the left panel; all eight are shown now.</li>
+        <li>Applying Preferences no longer snaps the window back to its starting size.</li>
+        <li>Clicking a layer button no longer loses the highlighted layer.</li>
+      </ul>
+    </div>
+
+    <div class="rel-entry">
+      <p class="rel-ver">0.9.1-alpha</p>
       <p class="rel-date">UPDATE</p>
 
       <h3>Changed</h3>
