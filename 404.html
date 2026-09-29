@@ -966,9 +966,187 @@ p.body.fine-note { font-size: 13px; color: #6b7583; }
   p.body, .feat p, .rel-entry li, .rel-entry p, .page p, .page li,
   .built p, .notice p, .acct .hint, .shotcap { font-size: 15px; }
 }
+
+/* ======================================================================
+   Window style: the page is an application window, sections are windows
+   ====================================================================== */
+
+/* shared window chrome (same look as the screenshot frame) */
+.win {
+  background: #d4d8e0;
+  border: 1px solid #10161f;
+  border-top-color: #9aa3b2; border-left-color: #9aa3b2;
+  padding: 3px;
+  box-shadow: 3px 4px 0 rgba(30,36,46,.16);
+  margin: 0 0 24px 0;
+}
+.winbar {
+  background: linear-gradient(90deg, #1d2531 0%, #4a5666 100%);
+  color: #ffffff;
+  font: bold 14px Verdana, Arial, sans-serif;
+  padding: 5px 6px 5px 8px;
+  line-height: 18px;
+  overflow: hidden;
+}
+.winbar .appicon, .appbar .appicon {
+  display: inline-block; width: 11px; height: 11px; margin-right: 7px; vertical-align: -1px;
+  background: linear-gradient(150deg, #ffffff, #7d8593); border: 1px solid #10161f;
+}
+.wbtns { float: right; }
+.wbtn {
+  display: inline-block; width: 16px; height: 14px; margin-left: 3px;
+  background: #d4d8e0; color: #10161f;
+  border: 1px solid #10161f; border-top-color: #ffffff; border-left-color: #ffffff;
+  font: bold 10px/13px Verdana, Arial, sans-serif; text-align: center; vertical-align: 1px;
+}
+.winbody {
+  background: #ffffff;
+  border: 1px solid #7e8798;
+  border-top-color: #10161f; border-left-color: #10161f;
+  margin-top: 3px;
+  padding: 16px 18px 12px 18px;
+}
+.winbody > *:last-child { margin-bottom: 0; }
+.secbar { display: none; }
+
+/* the whole page as the application window */
+.shell {
+  border: 1px solid #10161f;
+  border-top-color: #9aa3b2; border-left-color: #9aa3b2;
+  background: #d4d8e0;
+  padding: 3px;
+  box-shadow: 6px 8px 0 rgba(0,0,0,.18), 12px 16px 30px rgba(0,0,0,.25);
+}
+body { padding-top: 22px; }
+.utility .wbtns.big { margin-left: 16px; vertical-align: middle; float: none; display: inline-block; }
+.utility .wbtns.big .wbtn { width: 20px; height: 18px; font-size: 12px; line-height: 17px; }
+
+/* the nav as a menu bar */
+.navbar {
+  background: #d4d8e0; background-image: none;
+  border-top: 1px solid #ffffff; border-bottom: 1px solid #7e8798;
+}
+.navbar td {
+  border-right: none; padding: 6px 13px; font-weight: normal;
+}
+.navbar td.first { border-left: none; }
+.navbar a, .navbar a:visited { color: #10161f; }
+.navbar td:hover, .navbar td.on { background: #1d2531; background-image: none; }
+.navbar td:hover a, .navbar td.on a { color: #ffffff; }
+
+/* inner areas sit inside the window frame */
+.hero, table.cols { background: #ffffff; }
+.hero { border: 1px solid #7e8798; border-top-color: #10161f; border-left-color: #10161f; margin-top: 3px; }
+table.cols { border: 1px solid #7e8798; border-top: none; }
+.side { background: #e4e7ec; }
+.side .win.small { margin: 14px 12px 0 12px; }
+.side .win.small .winbar { font-size: 13px; }
+.side .win.small .winbody { padding: 10px 11px; }
+.side .specbox, .side .pullquote { padding: 0; margin: 0; border: none; background: none; }
+.main { padding-top: 20px; }
+
+/* the footer as a status bar */
+.footrule { display: none; }
+.foot {
+  background: #d4d8e0; border-top: 1px solid #ffffff;
+  padding: 6px 4px 4px 4px;
+}
+.foot .links, .foot .fine {
+  background: #e4e7ec;
+  border: 1px solid #7e8798; border-top-color: #10161f; border-left-color: #10161f;
+  padding: 5px 10px; margin: 0 0 4px 0;
+}
+.foot .fine { margin-bottom: 0; }
+
+@media (max-width: 860px) {
+  .utility .wbtns.big { display: none; }
+  body { padding-top: 0; }
+  .shell { box-shadow: none; }
+}
+@media (max-width: 700px) {
+  .winbody { padding: 14px 12px 10px 12px; }
+  .navbar td:hover { background: none; }
+  .navbar td:hover a { color: #10161f; }
+}
+
+/* hero screenshot uses the same window buttons */
+.appbar .wbtns .wbtn { width: 14px; height: 12px; font-size: 9px; line-height: 11px; }
+.side { width: 292px; }
+@media (max-width: 700px) {
+  /* stack each tier as header, features, button */
+  .price { display: grid; grid-template-columns: 1fr; }
+  .price tbody, .price tr { display: contents; }
+  .price th.tier { width: auto; }
+  .price tr > :nth-child(1) { order: 1; }
+  .price tr > :nth-child(2) { order: 2; }
+  .price tr > :nth-child(3) { order: 3; }
+  .price th.tier:not(:first-child) { border-top: 1px solid #9aa2ae; }
+}
+
+/* inner pages: white client area, sections as windows */
+.page {
+  background: #ffffff;
+  border: 1px solid #7e8798; border-top-color: #10161f; border-left-color: #10161f;
+  margin-top: 3px;
+}
+.page > .sub { margin-bottom: 22px; }
+.win.rel .winbody { padding-top: 12px; }
+.winbar .rel-tag { font-size: 10px; vertical-align: 2px; margin-left: 8px; border: 1px solid rgba(255,255,255,.55); }
+.win .rel-date { margin-bottom: 8px; }
+.win .winbody h3:first-child { margin-top: 0; }
+.page .win { max-width: 100%; }
+
+/* 404 as an error dialog */
+.err { background: #e4e7ec; border: 1px solid #7e8798; border-top-color: #10161f; border-left-color: #10161f; margin-top: 3px; padding: 70px 20px 80px 20px; }
+.err .win.dialog { max-width: 560px; margin: 0 auto; text-align: left; box-shadow: 6px 8px 0 rgba(0,0,0,.18); }
+.dlg { display: flex; gap: 18px; align-items: flex-start; }
+.erricon {
+  flex: 0 0 auto; width: 46px; height: 46px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f06a6a, #b5121b 70%);
+  border: 1px solid #6e0a10; color: #ffffff; font: bold 32px/44px Arial, sans-serif; text-align: center;
+  box-shadow: 2px 2px 0 rgba(0,0,0,.2);
+}
+.dlgtext .code { font-size: 13px !important; line-height: 1.3; margin: 2px 0 4px 0 !important; color: #7b8391 !important; font-family: Verdana, Arial, sans-serif !important; letter-spacing: .5px; }
+.dlgtext .code:before { content: "Error "; }
+.err .dlgtext h2 { font-size: 22px; margin: 0 0 8px 0; }
+.err .dlgtext p { max-width: none; margin-left: 0; }
+.dlgbtns { text-align: right; border-top: 1px solid #e2e5ea; margin-top: 16px; padding-top: 12px; }
+.dlgbtns p { margin: 0 !important; }
+@media (max-width: 700px) {
+  .err { padding: 30px 12px 40px 12px; }
+  .dlg { gap: 12px; }
+  .erricon { width: 36px; height: 36px; font-size: 25px; line-height: 34px; }
+  .dlgbtns { text-align: center; }
+  .dlgbtns .btn { display: block; margin: 0 0 8px 0; }
+}
+.err .dlgtext p { line-height: 1.55; }
+@media (max-width: 700px) {
+  .navbar td { padding: 0; }
+  .navbar td a { padding: 10px 11px; font-size: 14px; }
+}
+
+/* classic Windows desktop blue behind the window */
+body { background: #3a6ea5; background-image: linear-gradient(180deg, #2f5f96 0px, #3a6ea5 260px, #3a6ea5 100%); }
+
+/* 404: black page, all-red error box */
+body.e404 { background: #000000; background-image: none; }
+body.e404 .err { background: #000000; border-color: #000000; }
+body.e404 .win.dialog {
+  background: #b5121b; border-color: #4a0006; border-top-color: #f06a6a; border-left-color: #f06a6a;
+  box-shadow: 0 0 0 1px #4a0006, 0 0 40px rgba(181,18,27,.45);
+}
+body.e404 .dialog .winbar { background: linear-gradient(90deg, #6e0a10 0%, #c8242d 100%); }
+body.e404 .dialog .wbtn { background: #e8b4b7; border-color: #4a0006; border-top-color: #ffffff; border-left-color: #ffffff; }
+body.e404 .dialog .winbody { background: #b5121b; border-color: #f06a6a; border-top-color: #4a0006; border-left-color: #4a0006; color: #ffffff; }
+body.e404 .dialog .erricon { background: radial-gradient(circle at 35% 30%, #ffffff, #f3d3d5 70%); color: #b5121b; border-color: #4a0006; }
+body.e404 .dlgtext .code { color: #ffd6d8 !important; }
+body.e404 .err .dlgtext h2, body.e404 .err .dlgtext p { color: #ffffff; }
+body.e404 .dlgbtns { border-top-color: rgba(255,255,255,.3); }
+body.e404 .dlgbtns .btn { background: #ffffff; background-image: linear-gradient(180deg, #ffffff, #e9e3e3); color: #8a0d14 !important; border: 1px solid #4a0006; text-shadow: none !important; }
+body.e404 .dlgbtns .btn:hover { background: #fff2f2; }
 </style>
 </head>
-<body>
+<body class="e404">
 <div class="shell">
 
   <div class="masthead">
@@ -978,7 +1156,7 @@ p.body.fine-note { font-size: 13px; color: #6b7583; }
           <a href="https://pydraft.com/index.html" style="text-decoration:none;"><span class="logomark"></span><span class="wordmark">Py<em>Draft</em><span>2D CAD SYSTEM</span></span></a>
         </td>
         <td class="utility">
-          <a href="https://github.com/CNC4U/pydraft-site/issues">Support</a> &nbsp;|&nbsp; <a href="mailto:pydraft@protonmail.com?subject=PyDraft">Contact</a>
+          <a href="https://github.com/CNC4U/pydraft-site/issues">Support</a> &nbsp;|&nbsp; <a href="mailto:pydraft@protonmail.com?subject=PyDraft">Contact</a><span class="wbtns big"><span class="wbtn">_</span><span class="wbtn">&#9633;</span><span class="wbtn">&times;</span></span>
         </td>
       </tr>
     </table>
@@ -999,13 +1177,11 @@ p.body.fine-note { font-size: 13px; color: #6b7583; }
   </div>
 
   <div class="err">
-    <p class="code">404</p>
+    <div class="win dialog"><div class="winbar"><span class="appicon"></span>PyDraft &ndash; Page Not Found<span class="wbtns"><span class="wbtn">_</span><span class="wbtn">&#9633;</span><span class="wbtn">&times;</span></span></div><div class="winbody"><div class="dlg"><span class="erricon">&times;</span><div class="dlgtext"><p class="code">404</p>
     <h2>That page is not here</h2>
-    <p>The link may be out of date, or the page may have moved. The product page has everything worth reading.</p>
-    <p style="margin-top:18px;">
+    <p>The link may be out of date, or the page may have moved. The product page has everything worth reading.</p></div></div><div class="dlgbtns"><p style="margin-top:18px;">
       <a class="btn primary" href="https://pydraft.com/index.html">Go to the product page</a>
-      <a class="btn" href="https://pydraft.com/index.html#download">Download</a>
-    </p>
+    </p></div></div></div>
   </div>
 
   <div class="footrule"></div>
